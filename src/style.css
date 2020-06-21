@@ -40,7 +40,7 @@ html, body {
 
 .btn-primary {
 	background-color: #6648b1;
-	border: 1px solid #563d7c;https://www.welcomewildlife.com/wp-content/uploads/2019/01/Red-fox-300-0-%C2%A9-Stanislav-Duben-Shutterstock-e1563829913951.jpg
+	border: 1px solid #563d7c;
 }
 .btn-primary:hover {
 	background-color: #563d7c;
@@ -163,8 +163,8 @@ hr.light-100 {
 	right: 0;
 	z-index: -1;
 	display: block;
-	background-image: url('img/Scioly Background.png');
-	background-color: #939393;
+	background-image: url('img/Scioly Background Clear.png');
+	background-color: #5ab0d8;
 	background-position: center;
 	background-repeat: no-repeat;
 	width: 100%;
