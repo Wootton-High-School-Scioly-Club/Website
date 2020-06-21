@@ -1,4 +1,3 @@
 # Website
 
-This is a Scioly Club web site project
-
+Wootton High School Science Olympiad Club website
