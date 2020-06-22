@@ -92,5 +92,5 @@ document.getElementById('moar').onclick = function() {
 	this.parentNode.insertBefore(section, this);
 };
 document.getElementById('join_btn').onclick = function(){
-	window.location.href = "mailto:user@example.com?subject=Subject&body=message%20goes%20here";
+	window.location.href = "mailto:woottonscienceolympiad@gmail.com?subject=Join&body=";
 };
