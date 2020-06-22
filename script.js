@@ -91,6 +91,3 @@ document.getElementById('moar').onclick = function() {
 	section.className = 'section--purple wow fadeInDown';
 	this.parentNode.insertBefore(section, this);
 };
-document.getElementById('join_btn').onclick = function(){
-	window.location.href = "mailto:woottonscienceolympiad@gmail.com?subject=Join&body=";
-};
