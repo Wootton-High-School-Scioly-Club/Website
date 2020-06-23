@@ -322,6 +322,10 @@ figure {
     padding: 1rem;
 }
 
+.row padding wow fadeInLeft{
+	padding: 3rem;
+}
+
 /* Other */
 
 
