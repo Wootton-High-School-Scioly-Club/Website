@@ -142,7 +142,8 @@ hr.light-100 {
 }
 
 .wow {
-	width: 100%;
+	width: 75%;
+	margin: auto;
 }
 
 .container-fluid {
@@ -322,10 +323,6 @@ figure {
     padding: 1rem;
 }
 
-#row_in_join_div{
-	padding: 3rem;
-	width: 75%;
-}
 
 /* Other */
 
