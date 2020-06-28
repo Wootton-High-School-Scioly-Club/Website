@@ -108,6 +108,14 @@ html, body {
 	margin-bottom:5px;
 }
 
+.centt{
+	width: 100%;
+	text-align: center;
+	padding-top: 2rem;
+	padding-bottom: 3rem;
+	border-bottom: 2px solid gray;
+}
+
 footer {
 	background-color: #3f3f3f;
 	color: #d5d5d5;
@@ -223,7 +231,7 @@ hr.light-100 {
 	.display-4 {
 		font-size: 200%;
 	}
-	
+
 	.title {
 		text-align: center;
 	}
@@ -232,16 +240,16 @@ hr.light-100 {
 		margin-right: 2.5%;
 		margin-left: 2.5%;
 	}
-	
+
 	#SciolyEvents {
 		margin: auto;
 		width: 100%;
 	}
-	
+
 	.break-fixed-bg {
 		height: 400px;
 	}
-	
+
 	.carousel-caption {
 		top: 21vw;
 	}
@@ -263,18 +271,18 @@ hr.light-100 {
 		font-size: 3em;
 		padding: 1.5rem;
 	}
-	
+
 	h2.title {
 		font-size: 1.65em;
 	}
 	h3.title {
 		font-size: 1.5em;
 	}
-	
+
 	p.lead {
 		font-size: 1em;
 	}
-	
+
 	.welcome {
 		width: 98%;
 	}
