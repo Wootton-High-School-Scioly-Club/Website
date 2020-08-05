@@ -67,8 +67,24 @@ html, body {
 	border-radius: 0;
 }
 
+.form-seg{
+	padding: 10px;
+	margin-bottom: 10px;
+	border-radius: 8px;
+}
+.gray{
+	color: grey;
+}
+#eventl{
+	float: left;
+}
+
 .padding {
 	padding-bottom: 2rem;
+}
+
+.marging {
+	margin: 10px;
 }
 
 .welcome {
@@ -112,9 +128,6 @@ html, body {
 }
 .fa-facebook:hover, .fa-instagram:hover, .fa-envelope:hover {
 	color: #d5d5d5;
-}
-#whensignedin{
-	float: left;
 }
 .sciolyEventCard a, .sciolyEventCard2 a {
 	position: absolute;

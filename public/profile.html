@@ -15,9 +15,9 @@
 
     <!-- TODO: Add SDKs for Firebase products that you want to use
          https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-auth.js"></script>
-
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script>
 
     <script>
       // Your web app's Firebase configuration
@@ -90,13 +90,14 @@
 		<div class="container-fluid padding">
 			<div class="row welcome text-center">
 				<div class="col-12">
-					<h1 class="display-4"></h1>
+					<h1>My Events</h1>
 				</div>
 				<hr>
 				<div class="col-12">
-          <h3>My Events</h3>
-          <hr>
-					<p class="lead"></p>
+          <ul id="eventl">
+
+          </ul>
+          <h3 hidden="false" id="asklogin">Please <a href="signin.html">log in</a> to view your events.</h2>
 				</div>
 			</div>
 		</div>

@@ -1,5 +1,7 @@
 const emailf = document.getElementById("inpute");
 const passwordf = document.getElementById("inputp");
+const provider = new firebase.auth.GoogleAuthProvider();
+const signwg = document.getElementById("signwithg");
 
 function login(){
   var email = emailf.value;
@@ -14,16 +16,13 @@ function login(){
 
 };
 
-const provider = new firebase.auth.GoogleAuthProvider();
-const signwg = document.getElementById("signwithg");
-const auth = firebase.auth();
 
 signwg.onclick = function(){
   firebase.auth().signInWithPopup(provider);
 };
 
 
-auth.onAuthStateChanged(user=>{
+firebase.auth().onAuthStateChanged(user=>{
 	if(user){
     window.location.replace("index.html");
 	}
