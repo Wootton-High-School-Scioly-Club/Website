@@ -53,6 +53,17 @@ html, body {
 .fullen{
 	width: 100%;
 }
+
+.halfw{
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+}
+.sevenw{
+	width: 75%;
+	margin-left: auto;
+	margin-right: auto;
+}
 .leftj{
 	float: left;
 }
@@ -69,8 +80,21 @@ html, body {
 
 .form-seg{
 	padding: 10px;
+	width: 75%;
 	margin-bottom: 10px;
+	margin-left: auto;
+	margin-right: auto;
 	border-radius: 8px;
+	border-style: solid;
+	border-color: #ccc;
+	border-width: 1px;
+	justify-content: flex-start;
+	align-items: flex-start;
+	text-align: left;
+}
+.leftal{
+	text-align: left;
+	margin-left: 30px;
 }
 .gray{
 	color: grey;
@@ -85,6 +109,17 @@ html, body {
 
 .marging {
 	margin: 10px;
+}
+
+.paddin{
+	padding-top: 10px;
+	padding-left: 5px;
+	padding-bottom: 10px;
+}
+
+.signindiv{
+	width: 400px;
+	margin: auto;
 }
 
 .welcome {
@@ -235,7 +270,15 @@ hr.light-100 {
 	width: 75%;
 }
 
+.adjfont{
+	font-size: 120%;
+}
 
+.flexed{
+	display: inline-block;
+	vertical-align: top;
+
+}
 
 .break-fixed-bg {
 	background: none;
@@ -341,7 +384,19 @@ figure {
     padding: 1rem;
 }
 
+input[type=email], input[type=password], input[type=text] {
+  width: 100%;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
 
+input.inpu{
+	width: 200px;
+  border: 1px solid #ccc;
+	border-style: none none solid none;
+	margin-left: 30px;
+}
 /* Other */
 
 

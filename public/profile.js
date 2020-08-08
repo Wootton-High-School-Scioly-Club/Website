@@ -20,31 +20,30 @@ auth.onAuthStateChanged(user => {
         console.log(item);
         var bigli = document.createElement("li");
         var bigdiv = document.createElement("div");
+        bigdiv.className = "sevenw";
+        //bigdiv.center(horizontal);
         var titlt = document.createElement("h2");
-        titlt.style.cssFloat = "left";
+        titlt.className = "leftal";
         var titletext = document.createTextNode(item.name);
         titlt.appendChild(titletext);
         var memla = document.createElement("h4");
-        memla.style.cssFloat = "left";
-        memla.style.padding = "20px 30px 50px 30px";
+        memla.className = "leftal";
+        memla.style.padding = "10px 0px 5px 20px";
         memla.appendChild(document.createTextNode("Members:"));
         var memul = document.createElement("ul");
-        memul.style.cssFloat = "left";
-        memul.style.padding = "20px 30px 50px 30px";
+        memul.className = "leftal";
+        memul.style.padding = "0px 0px 50px 70px";
         item.Members.forEach((itemi, i) => {
           var memli = document.createElement("li");
           memli.appendChild(document.createTextNode(itemi));
           memul.appendChild(memli);
         });
         bigdiv.appendChild(titlt);
-        bigdiv.appendChild(document.createElement("br"));
         bigdiv.appendChild(memla);
         bigdiv.appendChild(memul);
         bigli.appendChild(bigdiv);
         eventli.appendChild(bigli);
-        var hrtag = document.createElement("hr");
-        hrtag.style.cssFloat = "left";
-        bigdiv.appendChild(hrtag);
+        bigdiv.appendChild(document.createElement("hr"));
         /*
         var str = "<li><h3>" + docd.Name + "</h3><h4>Teammates:</h4>";
         docd.Members.forEach(function(nameofm){
@@ -56,9 +55,9 @@ auth.onAuthStateChanged(user => {
         $('eventli').append(str);*/
       });
     });
-    $("#asklogin").hidden = true;
+    document.getElementById("asklogin").hidden = true;
 
 	}else{
-    $("#asklogin").hidden = false;
+    document.getElementById("asklogin").hidden = false;
 	}
 });
