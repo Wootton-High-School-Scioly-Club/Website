@@ -14,7 +14,7 @@ auth.onAuthStateChanged(user => {
     eventref = db.collection('Events');
     userref = db.collection("Members");
     var cemail = user.email;
-    eventref.where("emails", "array-contains", cemail).get().then((eventarr) => {
+    eventref.where("mememail", "array-contains", cemail).get().then((eventarr) => {
       eventarr.docs.forEach(function(doc){
         var item = doc.data();
         console.log(item);
@@ -33,7 +33,7 @@ auth.onAuthStateChanged(user => {
         var memul = document.createElement("ul");
         memul.className = "leftal";
         memul.style.padding = "0px 0px 50px 70px";
-        item.Members.forEach((itemi, i) => {
+        item.memname.forEach((itemi, i) => {
           var memli = document.createElement("li");
           memli.appendChild(document.createTextNode(itemi));
           memul.appendChild(memli);
@@ -56,8 +56,9 @@ auth.onAuthStateChanged(user => {
       });
     });
     document.getElementById("asklogin").hidden = true;
-
+    document.getElementById("updatep").hidden = false;
 	}else{
     document.getElementById("asklogin").hidden = false;
+    document.getElementById("updatep").hidden = true;
 	}
 });

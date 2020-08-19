@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html>
   <head>
     <!-- Required meta tags -->
@@ -18,7 +18,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script>
-
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-functions.js"></script>
     <script>
       // Your web app's Firebase configuration
       var firebaseConfig = {
@@ -34,6 +34,7 @@
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
       firebase.analytics();
+
     </script>
 
   </head>
@@ -88,17 +89,46 @@
 
 		<!-- Welcome section -->
 		<div class="container-fluid padding">
-			<div class="row welcome text-center">
+			<div class="row text-center" style="width: 100%">
 				<div class="col-12">
-					<h1>My Events</h1>
+					<h1>And get the most expensive machine, in case the administrator comes.</h1>
 				</div>
 				<hr>
-				<div class="col-12">
-          <ul id="eventl" class="fullen" style="list-style-type:none;">
+				<div class="col-12" style="width: 100%; margin: auto; padding-top: 2rem; text-align: center">
+          <form class = "admin" id="adminform" hidden="true">
+            <h3>Provide Email to Add Admin</h3>
+            <input style="width:500px;padding:10px;margin:20px" type="email" placeholder="Email" id="admine" required /><br>
+            <button style="padding:10px;margin-bottom:30px" class="btn-primary" id="addadmin">Add Admin</button>
+          </form style="margin:60px">
+          <hr>
+          <div id="eventsdiv" class="admin" hidden="true">
+          </div>
+            <button id="addeven" class="btn-primary paddin">Add Event</button>
+          <hr>
 
-          </ul>
-          <h3 id="asklogin">Please <a href="signin.html">log in</a> to view your events.</h3>
-          <h3 id="updatep">Update your profile <a href="signup.html">here</a>.</h3>
+          <div class="fstuck admin" hidden="true">
+            <div id="recommends" class="chooseperson"></div>
+            <div id="totalpeople" class="chooseperson"></div>
+            </div>
+          </div>
+
+          <div id="eventgrid" class="admin" hidden="true" style="width: 100%; margin-bottom: 30px"></div>
+          <button style="margin: auto" class="btn-primary paddin admin" id="assignt" hidden="true">Assign Teams</button>
+          <div class="admin popupdivs" id="ppopup" hidden="true" style="visibility: hidden">
+            <h2 id="ppopupname" style="display: inline; width: 100%; margin-bottom: 20px" class="flexedd"></h2><br><br>
+            <p class="flexedd"><b>Grade: </b></p>
+            <p id="popupgrade" class="flexedd"></p>
+            <br>
+            <p class="flexedd"><b>Email: </b></p>
+            <p id="popupema" class="flexedd"></p>
+            <br>
+            <p class="flexedd"><b>Science Classes: </b></p>
+            <p id="popupsci" class="flexedd"></p>
+            <br>
+            <p class="flexedd"><b>Perferred Events: </b></p>
+            <p id="popuppe" class="flexedd"></p>
+          </div>
+          <hr>
 				</div>
 			</div>
 		</div>
@@ -126,8 +156,10 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
-	<script src="https://kit.fontawesome.com/f71a594843.js" crossorigin="anonymous"></script>
-  <script src="profile.js" defer></script>
-  <script src="checkiftag.js"></script>
+  	<script src="https://kit.fontawesome.com/f71a594843.js" crossorigin="anonymous"></script>
+    <script src="addEventDiv.js"></script>
+    <script src="setupui.js"></script>
+    <script src="admin.js" defer></script>
+    <script src="checkiftag.js"></script>
   </body>
 </html>

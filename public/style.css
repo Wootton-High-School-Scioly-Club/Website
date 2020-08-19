@@ -111,6 +111,10 @@ html, body {
 	margin: 10px;
 }
 
+.margin-h{
+	margin: 5px;
+}
+
 .paddin{
 	padding-top: 10px;
 	padding-left: 5px;
@@ -213,7 +217,18 @@ hr.light-100 {
 	text-align: center;
 	height: 600px;
 }
-
+.fixedform{
+	background-color: #fff;
+	width: 400px;
+	margin: 0px 0 0 -200px;
+	position: fixed;
+	left: 50%;
+	top: 80px;
+	visibility: hidden;
+	padding: 10px;
+	border: solid 1.5px #eee;
+	z-index: 4;
+}
 .container-fluid {
 	background-color: #fff;
 }
@@ -277,13 +292,29 @@ hr.light-100 {
 .flexed{
 	display: inline-block;
 	vertical-align: top;
-
+}
+.flexedd{
+	display: inline;
+	vertical-align: top;
 }
 
 .break-fixed-bg {
 	background: none;
 	height: 600px;
 }
+
+.popupdivs{
+	position: fixed;
+	left: 20px;
+	top: 150px;
+	width: 270px;
+	padding: 10px;
+	border: solid 1px grey;
+	border-radius: 5px;
+	background-color: #EEEEEE;
+	text-align: left;
+}
+
 
 /*---Media Queries --*/
 @media (max-width: 1390px) {
@@ -384,7 +415,7 @@ figure {
     padding: 1rem;
 }
 
-input[type=email], input[type=password], input[type=text] {
+input[type=email], input[type=password], input[type=text], input[type=number] {
   width: 100%;
   display: inline-block;
   border: 1px solid #ccc;
@@ -398,7 +429,32 @@ input.inpu{
 	margin-left: 30px;
 }
 /* Other */
+table, th, td{
+	border: 2px solid #000000;
+	border-collapse: collapse;
+	padding: 5px;
+}
 
+.fstuck{
+	position: fixed;
+	z-index: 3;
+	bottom: 0px;
+	width: 1000px;
+	left: 50%;
+	margin-left: -500px;
+}
+.chooseperson{
+	background-color: #DDDDDD;
+	border: 1px solid #000000;
+	padding: 10px;
+	text-align: left;
+	margin: auto;
+}
+
+.chooseperson > div{
+	display: inline-block;
+	vertical-align: top;
+}
 
 /*
 Extra small (xs) devices (portrait phones, less than 576px)

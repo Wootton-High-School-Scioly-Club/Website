@@ -70,158 +70,127 @@ fieldsref.doc("ScienceClasses").get().then(function (doc){
     fieldsdiv.appendChild(tbd);
   }
 });
-fieldsref.doc("Events").get().then((doc) => {
-  if(doc.exists){
-    var tbd = document.createElement("div");
-    tbd.className = "form-seg";
-    tbd.style.padding = "10px";
-    var tht = document.createElement("h4");
-    tht.className = "leftal";
-    tht.appendChild(document.createTextNode("Please choose at least four preferred events:"));
+fieldsref.doc("Event").get().then((doc) => {
 
-    //create the div that holds the chosen events
-    var firdiv = document.createElement("div");
-    firdiv.addEventListener("dragover", function(e){
-      e.preventDefault();
-      const afte = getAftel(firdiv, e.clientX, e.clientY);
-      if(afte === null){
-        firdiv.appendChild(draggedItem);
+  var tbd = document.createElement("div");
+  tbd.className = "form-seg";
+  tbd.style.padding = "10px";
+  var tht = document.createElement("h4");
+  tht.className = "leftal";
+  tht.appendChild(document.createTextNode("Please choose at least four preferred events:"));
+
+  //create the div that holds the chosen events
+  var firdiv = document.createElement("div");
+  firdiv.addEventListener("dragover", function(e){
+    e.preventDefault();
+    const afte = getAftel(firdiv, e.clientX, e.clientY);
+    if(afte === null){
+      firdiv.appendChild(draggedItem);
+    }else{
+      firdiv.insertBefore(draggedItem, afte);
+    }
+  });
+  firdiv.addEventListener("dragenter", function(e){
+    e.preventDefault();
+  });
+  firdiv.addEventListener("drop", function(e){
+    //firdiv.appendChild(draggedItem);
+  });
+  firdiv.setAttribute("id", "ansdiv");
+  firdiv.style.width = "610px";
+  firdiv.style.height = "260px";
+  firdiv.style.margin = "20px 0px 20px 30px";
+  firdiv.style.border = "solid 1px grey";
+  firdiv.style.backgroundColor = "#ddd";
+  firdiv.style.borderRadius = "5px";
+
+  //create the box that holds the events
+  var othdiv = document.createElement("div");
+  othdiv.addEventListener("dragover", function(e){
+    e.preventDefault();
+    const afte = getAftel(othdiv, e.clientX, e.clientY);
+    if(afte === null){
+      othdiv.appendChild(draggedItem);
+    }else{
+      othdiv.insertBefore(draggedItem, afte);
+    }
+  });
+  othdiv.addEventListener("dragenter", function(e){
+    e.preventDefault();
+  });
+  othdiv.addEventListener("drop", function(e){
+    //othdiv.appendChild(draggedItem);
+  });
+  othdiv.style.margin = "20px 0px 20px 30px";
+  othdiv.style.width = "610px";
+
+
+  tbd.appendChild(tht);
+  tbd.appendChild(firdiv);
+  tbd.appendChild(othdiv);
+  fieldsdiv.appendChild(tbd);
+
+  doc.forEach((item, i) => {
+    var tempdiv = addeventdiv(othdiv, item.data());
+
+    tempdiv.addEventListener("dragstart", function(e){
+      draggedItem = tempdiv;
+      //var box = tempdiv.
+      tempdiv.classList.add("dragging");
+      setTimeout(function(){
+        tempdiv.style.opacity = "0.5";
+      }, 0);
+    });
+    tempdiv.addEventListener("dragend", function(){
+      tempdiv.classList.remove("dragging");
+      setTimeout(function(){
+        draggedItem = null;
+        tempdiv.style.opacity = "1";
+      }, 0);
+    });
+    tempdiv.addEventListener("drag", function(){
+
+    });
+    tempdiv.addEventListener("dblclick", () => {
+      if(tempdiv.parentElement.id === "ansdiv"){
+        othdiv.appendChild(tempdiv);
       }else{
-        firdiv.insertBefore(draggedItem, afte);
+        ansdiv.appendChild(tempdiv);
       }
     });
-    firdiv.addEventListener("dragenter", function(e){
-      e.preventDefault();
-    });
-    firdiv.addEventListener("drop", function(e){
-      //firdiv.appendChild(draggedItem);
-    });
-    firdiv.setAttribute("id", "ansdiv");
-    firdiv.style.width = "610px";
-    firdiv.style.height = "260px";
-    firdiv.style.margin = "20px 0px 20px 30px";
-    firdiv.style.border = "solid 1px grey";
-    firdiv.style.backgroundColor = "#ddd";
-    firdiv.style.borderRadius = "5px";
+  });
 
-    //create the box that holds the events
-    var othdiv = document.createElement("div");
-    othdiv.addEventListener("dragover", function(e){
-      e.preventDefault();
-      const afte = getAftel(othdiv, e.clientX, e.clientY);
-      if(afte === null){
-        othdiv.appendChild(draggedItem);
-      }else{
-        othdiv.insertBefore(draggedItem, afte);
-      }
-    });
-    othdiv.addEventListener("dragenter", function(e){
-      e.preventDefault();
-    });
-    othdiv.addEventListener("drop", function(e){
-      //othdiv.appendChild(draggedItem);
-    });
-    othdiv.style.margin = "20px 0px 20px 30px";
-    othdiv.style.width = "610px";
-
-
-    tbd.appendChild(tht);
-    tbd.appendChild(firdiv);
-    tbd.appendChild(othdiv);
-    fieldsdiv.appendChild(tbd);
-
-    //create fake drag placeholder div.
-    const faked = document.createElement("div");
-    faked.style.width = "140px";
-    faked.style.height = "100px";
-    faked.style.margin = "20px 0 0 10px";
-    faked.style.border = "solid 1px grey";
-    faked.style.borderRadius = "5px";
-    faked.style.backgroundColor = "#grey";
-
-    doc.data().Events.forEach((item, i) => {
-      var tempdiv = document.createElement("div");
-      tempdiv.className = "flexed draggablee";
-      tempdiv.setAttribute("id", item.id);
-      tempdiv.style.width = "140px";
-      tempdiv.style.height = "100px";
-      tempdiv.style.margin = "20px 0 0 10px";
-      tempdiv.style.border = "solid 1px grey";
-      tempdiv.style.borderRadius = "5px";
-      tempdiv.style.backgroundColor = "#eeeeee";
-      tempdiv.setAttribute("draggable", true);
-      var evename = document.createElement("h5");
-      evename.style.margin = "0 0 0 5px";
-      evename.appendChild(document.createTextNode(item.name));
-      tempdiv.appendChild(evename);
-      othdiv.appendChild(tempdiv);
-
-      var popupdiv = document.createElement("div");
-      popupdiv.setAttribute("id", item.id.concat("popup"));
-      popupdiv.hidden = true;
-      popupdiv.style.position = "fixed";
-      popupdiv.style.left = "20px";
-      popupdiv.style.top = "150px";
-      popupdiv.style.width = "270px";
-      popupdiv.style.padding = "10px";
-      popupdiv.style.border = "solid 1px grey";
-      popupdiv.style.borderRadius = "5px";
-      popupdiv.style.backgroundColor = "#eeeeee";
-      var popupnumt = document.createElement("h5");
-      popupnumt.className = "adjfont";
-      popupnumt.appendChild(document.createTextNode("Team of: ".concat(item.members)));
-      var popuptit = document.createElement("h3");
-      popuptit.className = "adjfont";
-      popuptit.appendChild(document.createTextNode(item.name));
-      var popupdeslbl = document.createElement("h5");
-      popupdeslbl.className = "adjfont";
-      popupdeslbl.appendChild(document.createTextNode("Description:"));
-      var popupdes = document.createElement("p");
-      popupdes.className = "adjfont";
-      popupdes.appendChild(document.createTextNode(item.description));
-      popupdiv.appendChild(popuptit);
-      popupdiv.appendChild(popupnumt);
-      popupdiv.appendChild(popupdeslbl);
-      popupdiv.appendChild(popupdes);
-      tbd.appendChild(popupdiv);
-
-      tempdiv.onmouseover = function(event){
-        popupdiv.hidden = false;
-      };
-      tempdiv.addEventListener("mouseleave", function(){
-        popupdiv.hidden = true;
-      });
-
-
-      var offsetx, offsety;
-      //start dragging stuff code
-      tempdiv.addEventListener("dragstart", function(e){
-        draggedItem = tempdiv;
-        //var box = tempdiv.
-        tempdiv.classList.add("dragging");
-        setTimeout(function(){
-          tempdiv.style.opacity = "0.5";
-        }, 0);
-      });
-      tempdiv.addEventListener("dragend", function(){
-        tempdiv.classList.remove("dragging");
-        setTimeout(function(){
-          draggedItem = null;
-            tempdiv.style.opacity = "1";
-        }, 0);
-      });
-      tempdiv.addEventListener("drag", function(){
-
-      });
-    });
-
-  }
 });
 
 
 auth.onAuthStateChanged(user => {
   if(user){
+    var id = user.uid;
 
+    db.collection("Members").doc(user.uid).get().then((doc) => {
+      if(doc.exists){
+        const map = new Map(Object.entries(doc.data()));
+        inputsid.forEach((item, i) => {
+          document.getElementById(item).value = map.get(item);
+          if(item === "passwordf" || item === "emailf"){
+            document.getElementById(item).disabled = true;
+          }
+        });
+        map.get("scienceclass").forEach((item, i) => {
+          document.getElementById(item).checked = true;
+        });
+        map.get("preferredeve").forEach((item, i) => {
+          document.getElementById("ansdiv").appendChild(document.getElementById(item));
+        });
+
+        document.getElementById("titleh1").innerHTML = "Update Your Profile";
+        document.getElementById("signup").innerHTML = "Update";
+      }else{
+        document.getElementById("emailf").value = user.email;
+        document.getElementById("passwordf").disabled = true;
+        document.getElementById("emailf").disabled = true;
+      }
+    });
 	}else{
 
 	}
@@ -236,9 +205,24 @@ document.getElementById("signup").addEventListener("click", () => {
   inputsid.forEach((item, i) => {
     var tex = document.getElementById(item).value;
     if(tex.length < 1){
-      canprocede = false;
+      if(item === "passwordf"){
+        if(!user){
+          canprocede = false;
+        }
+      }else{
+        canprocede = false;
+      }
     }else{
-      person.set(item, tex);
+      if(item === "passwordf"){
+        if(tex.length < 6 && !user){
+          window.alert("Password must contain at least 6 characters!");
+        }
+        else{
+          person.set(item, tex);
+        }
+      }else{
+        person.set(item, tex);
+      }
     }
   });
 
@@ -265,13 +249,24 @@ document.getElementById("signup").addEventListener("click", () => {
 
   if(canprocede){
     if(user){
-      memberref.doc(user.uid).set(obj);
+      obj.id = user.uid;
+
+      memberref.doc(user.uid).get().then(doc => {
+        if(doc.exists){
+          memberref.doc(user.uid).update(obj);
+        }else{
+          obj.team = -1;
+          memberref.doc(user.uid).set(obj);
+        }
+      });
     }else{
       memberref.where("emailf", "==", person.get("emailf")).get().then((doc) => {
         if(doc.exists){
           window.alert("Account already exists. Please sign in to update profile.");
         }else{
           firebase.auth().createUserWithEmailAndPassword(person.get("emailf"), person.get("passwordf")).then((cred) => {
+            obj.team = -1;
+            obj.id = cred.user.uid;
             memberref.doc(cred.user.uid).set(obj);
             window.location.replace("index.html");
           });

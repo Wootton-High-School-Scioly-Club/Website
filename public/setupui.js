@@ -1,0 +1,374 @@
+const setupui = (user) => {
+  if(user.admin){
+    var adminele = document.querySelectorAll('.admin');
+    adminele.forEach((item, i) => {
+      item.hidden = false;
+    });
+    //firebase.firestore().collection("Event").get().then(doc => {
+      //if(doc.exists){
+    var divforall = document.querySelector('#eventsdiv');
+    divforall.style.width = "610px";
+    divforall.style.margin = "20px auto 20px auto";
+    divforall.style.border = "solid 1px grey";
+    divforall.style.backgroundColor = "#ddd";
+    divforall.style.borderRadius = "5px";
+    divforall.style.paddingBottom = "20px";
+    divforall.style.textAlign = "left";
+
+    var formtoadd = document.createElement("form");
+    formtoadd.className = "fixedform";
+    var labeln = document.createElement("label");
+    var inputn = document.createElement("input");
+    inputn.className = "paddin";
+    labeln.style.marginBottom = "0";
+    inputn.style.marginBottom = "10px";
+    inputn.setAttribute("type", "text");
+    inputn.setAttribute("id", "namei");
+    labeln.setAttribute("for", "namei");
+    labeln.appendChild(document.createTextNode("Name"));
+    formtoadd.appendChild(labeln);
+    formtoadd.appendChild(inputn);
+
+    var labeld = document.createElement("label");
+    var inputd = document.createElement("input");
+    inputd.className = "paddin";
+    labeld.style.marginBottom = "0";
+    inputd.style.marginBottom = "10px";
+    inputd.setAttribute("type", "text");
+    inputd.setAttribute("id", "desci");
+    labeld.setAttribute("for", "desci");
+    labeld.appendChild(document.createTextNode("Description"));
+    formtoadd.appendChild(labeld);
+    formtoadd.appendChild(inputd);
+
+    var labeli = document.createElement("label");
+    var inputi = document.createElement("input");
+    inputi.className = "paddin";
+    labeli.style.marginBottom = "0";
+    inputi.style.marginBottom = "10px";
+    inputi.setAttribute("type", "text");
+    inputi.setAttribute("id", "idi");
+    labeli.setAttribute("for", "idi");
+    labeli.appendChild(document.createTextNode("ID"));
+    formtoadd.appendChild(labeli);
+    formtoadd.appendChild(inputi);
+
+    var labelm = document.createElement("label");
+    var inputm = document.createElement("input");
+    inputm.className = "paddin";
+    labelm.style.marginBottom = "0";
+    inputm.style.marginBottom = "10px";
+    inputm.setAttribute("type", "number");
+    inputm.setAttribute("id", "membi");
+    labelm.setAttribute("for", "membi");
+    labelm.appendChild(document.createTextNode("Teams of:"));
+    formtoadd.appendChild(labelm);
+    formtoadd.appendChild(inputm);
+
+    var labelb = document.createElement("label");
+    var inputb = document.createElement("input");
+    inputb.className = "paddin";
+    labelb.style.marginBottom = "0";
+    inputb.style.marginBottom = "20px";
+    inputb.setAttribute("type", "number");
+    inputb.setAttribute("id", "bloci");
+    labelb.setAttribute("for", "bloci");
+    labelb.appendChild(document.createTextNode("Time Block"));
+    formtoadd.appendChild(labelb);
+    formtoadd.appendChild(inputb);
+
+    var inputbtn = document.createElement("button");
+    inputbtn.className = "btn-primary paddin halfw";
+    inputbtn.innerHTML = "Add";
+    inputbtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      var obj = {
+        name: inputn.value,
+        description: inputd.value,
+        block: inputb.value,
+        members: inputm.value,
+        id: inputi.value,
+      };
+      db.collection('Event').doc(obj.id).set(obj).then(() => {
+        formtoadd.style.visibility = "hidden";
+      });
+    });
+    formtoadd.appendChild(inputbtn);
+    var cancelb = document.createElement("button");
+    cancelb.innerHTML = "Cancel";
+    cancelb.className = "btn-primary paddin halfw";
+    cancelb.addEventListener("click", (e) => {
+      e.preventDefault();
+      formtoadd.style.visibility = "hidden";
+    });
+    formtoadd.appendChild(cancelb);
+
+    document.querySelector('#addeven').addEventListener("click", () => {
+        formtoadd.style.visibility = "visible";
+        inputn.value = "";
+        inputd.value = "";
+        inputi.value = "";
+        inputb.value = "";
+        inputm.value = "";
+
+        inputi.disabled = false;
+        inputbtn.innerHTML = "Add";
+    });
+
+    divforall.appendChild(formtoadd);
+
+
+    let divgrid = document.querySelector("#eventgrid");
+    /*
+    var labnum = document.createElement("label");
+    var inputnum = document.createElement("input");
+    inputnum.className = "paddin";
+    labnum.style.marginBottom = "0";
+    labnum.style.fontSize = "10px";
+
+    inputnum.style.marginBottom = "20px";
+    inputnum.style.width = "200px";
+    inputnum.setAttribute("type", "number");
+    inputnum.setAttribute("id", "teamnum");
+    labnum.setAttribute("for", "teamnum");
+    labnum.appendChild(document.createTextNode("Number of Teams"));
+    divgrid.appendChild(labnum);
+    divgrid.appendChild(inputnum);*/
+    var tbl = document.createElement("table");
+    tbl.style.textAlign = "left";
+    var hrow = document.createElement("tr");
+    hrow.setAttribute("timb", -1);
+    hrow.style.height = "50px";
+    var teamnumber = 3;
+    tbl.style.width = (120 + 350 * teamnumber) + "px";
+    tbl.style.margin = "auto";
+    var lefhead = document.createElement("th");
+    lefhead.style.width = "120px";
+    lefhead.innerHTML = "Event";
+    hrow.appendChild(lefhead);
+    for(var a = 0; a < teamnumber; a ++){
+      var temphead = document.createElement("th");
+      temphead.style.width = "350px";
+      temphead.colSpan = "6";
+      temphead.innerHTML = "Team " + (a + 1);
+      hrow.appendChild(temphead);
+    }
+    tbl.appendChild(hrow);
+    divgrid.appendChild(tbl);
+
+    var colors = ["#FF0000", "#FFA500", "#FFFF00", "#00FF00", "#0080FF", "#0000FF", "#AA00FF"];
+    var teamsarr = [];
+    var totpeo = document.querySelector("#totalpeople");
+    document.querySelector('#ppopup').style.top = "80px";
+
+    let p1 = firebase.firestore().collection('Event').onSnapshot(doc => {
+      let changes = doc.docChanges();
+      changes.forEach((item, i) => {
+        var tempdoc = item.doc.data();
+        if(item.type == 'added'){
+          //For the events
+          var tempdiv = addeventdiv(divforall, tempdoc);
+          tempdiv.classList.add(tempdoc.id);
+          tempdiv.addEventListener("click", () => {
+            formtoadd.style.visibility = "visible";
+            inputn.value = tempdoc.name;
+            inputd.value = tempdoc.description;
+            inputi.value = tempdoc.id;
+            inputb.value = tempdoc.block;
+            inputm.value = tempdoc.members;
+
+            inputi.disabled = true;
+            inputbtn.innerHTML = "Update";
+          });
+          //For the table
+          var temprow = document.createElement("tr");
+          temprow.classList.add(tempdoc.id);
+          temprow.setAttribute("timb", tempdoc.block);
+          temprow.style.width = (120 + 350 * teamnumber) + "px";
+          temprow.style.height = "50px";
+          temprow.style.backgroundColor = colors[tempdoc.block];
+          var templab = document.createElement("th");
+          templab.style.width = "120px";
+          templab.innerHTML = tempdoc.name;
+          temprow.appendChild(templab);
+          for(var a = 0; a < teamnumber; a ++){
+            for(var b = 0; b < tempdoc.members; b ++){
+              var tempd = document.createElement("td");
+              tempd.className = (tempdoc.id+(a+1));
+              tempd.setAttribute("nameofe", tempdoc.name);
+              tempd.addEventListener("dragover", e => {
+                e.preventDefault();
+              });
+              tempd.addEventListener("dragenter", e => {
+                e.preventDefault();
+              });
+              tempd.addEventListener("drop", e => {
+                e.preventDefault();
+
+                e.target.innerHTML = "";
+                var cnode = draggedItem.cloneNode(true);
+                cnode.style.opacity = 1;
+                cnode.style.margin = "0";
+                e.target.appendChild(cnode);
+              });
+              tempd.style.width = (350 / tempdoc.members) + "px";
+              tempd.colSpan = (6 / tempdoc.members).toString();
+              temprow.appendChild(tempd);
+            }
+            teamsarr.push((tempdoc.id+(a+1)));
+          }
+          var inserted = false;
+          var childrentbl = tbl.children;
+          for(var a = 0; a < childrentbl.length; a ++){
+            child = childrentbl[a];
+            if(child.getAttribute("timb") > temprow.getAttribute("timb")){
+              tbl.insertBefore(temprow, child);
+              inserted = true;
+              break;
+            }
+          }
+          if(!inserted){
+            tbl.appendChild(temprow);
+          }
+        }
+        if(item.type == 'removed'){
+          var tempdivs = document.querySelectorAll('.' + tempdoc.id);
+          tempdivs.forEach((it, i) => {
+            it.parentElement.removeChild(it);
+          });
+          for(var a = 0; a < teamnumber; a ++){
+            teamsarr.remove((tempdoc.id+(a+1)));
+          }
+        }
+        if(item.type == 'modified'){
+          var tempdivs = document.querySelectorAll('.' + tempdoc.id);
+          tempdivs.forEach((it, i) => {
+            it.parentElement.removeChild(it);
+          });
+          var tempdiv = addeventdiv(divforall, tempdoc);
+          tempdiv.classList.add(tempdic.id);
+          tempdiv.addEventListener("click", () => {
+            formtoadd.style.visibility = "visible";
+            inputn.value = tempdoc.name;
+            inputd.value = tempdoc.description;
+            inputi.value = tempdoc.id;
+            inputb.value = tempdoc.block;
+            inputm.value = tempdoc.members;
+
+            inputi.disabled = true;
+            inputbtn.innerHTML = "Update";
+          });
+
+          var temprow = document.createElement("tr");
+          temprow.className = tempdoc.id;
+          temprow.setAttribute("timb", tempdoc.block);
+          temprow.style.width = (120 + 350 * teamnumber) + "px";
+          temprow.style.height = "50px";
+          temprow.style.backgroundColor = colors[tempdoc.block];
+          var templab = document.createElement("th");
+          templab.style.width = "120px";
+          templab.innerHTML = tempdoc.name;
+          temprow.appendChild(templab);
+          for(var a = 0; a < teamnumber; a ++){
+            for(var b = 0; b < tempdoc.members; b ++){
+              var tempd = document.createElement("td");
+              tempd.className = (tempdoc.id+(a+1));
+              tempd.addEventListener("dragover", e => {
+                e.preventDefault();
+              });
+              tempd.addEventListener("dragenter", e => {
+                e.preventDefault();
+              });
+              tempd.addEventListener("drop", e => {
+                e.preventDefault();
+
+                e.target.innerHTML = "";
+                var cnode = draggedItem.cloneNode(true);
+                cnode.style.opacity = 1;
+                cnode.style.margin = "0";
+                e.target.appendChild(cnode);
+              });
+              tempd.style.width = (350 / tempdoc.members) + "px";
+              tempd.colSpan = (6 / tempdoc.members).toString();
+              temprow.appendChild(tempd);
+            }
+          }
+          var inserted = false;
+          var childrentbl = tbl.children;
+          for(var a = 0; a < childrentbl.length; a ++){
+            child = childrentbl[a];
+            if(child.getAttribute("timb") > temprow.getAttribute("timb")){
+              tbl.insertBefore(temprow, child);
+              inserted = true;
+              break;
+            }
+          }
+          if(!inserted){
+            tbl.appendChild(temprow);
+          }
+        }
+      });
+    });
+
+
+
+    var peoples;
+    var peopledivs = new Map();
+    let p2 = firebase.firestore().collection('Members').get().then(doc => {
+      peoples = doc;
+      doc.forEach((item, i) => {
+        var tempperson = addPerson(totpeo, item.data());
+        var cloneny = tempperson.cloneNode(true);
+        cloneny.margin = "0";
+        peopledivs.set(item.data().id, cloneny);
+        tempperson.addEventListener("dragstart", (e) => {
+          draggedItem = tempperson;
+          draggedItem.style.opacity = "0.5";
+        });
+        tempperson.addEventListener("dragend", e => {
+          draggedItem.style.opacity =  "1";
+          setTimeout(() => {
+            draggedItem = null;
+          }, 0);
+        });
+      });
+    });
+    var eventarr;
+    let p3 = firebase.firestore().collection('Events').get().then(eventar => {
+      eventarr = eventar;
+    });
+    Promise.all([p1, p2, p3]).then(() => {
+      eventarr.forEach((event, i) => {
+        var aevent = event.data();
+        var thiseventcons = document.querySelectorAll('.' + aevent.id);
+        console.log(aevent.id);
+        for(var a = 0; a < aevent.memid.length; a ++){
+          thiseventcons[a].appendChild(peopledivs.get(aevent.memid[a]).cloneNode(true));
+        }
+      });
+    });
+
+    document.querySelector("#assignt").addEventListener("click", () => {
+      teamsarr.forEach((item, i) => {
+        var surrounddivs = document.querySelectorAll("." + item);
+        var tempobj = {
+          memid: [],
+          memname: [],
+          mememail: [],
+          id: item,
+        };
+        surrounddivs.forEach((sdiv, i) => {
+          tempobj.name = sdiv.getAttribute("nameofe");
+          if(sdiv.firstChild){
+            tempobj.memid.push(sdiv.children[0].getAttribute("uid"));
+            tempobj.memname.push(sdiv.children[0].firstChild.innerHTML);
+            tempobj.mememail.push(sdiv.children[0].getAttribute("email"));
+          }
+        });
+        firebase.firestore().collection('Events').doc(item).set(tempobj);
+      });
+
+    });
+    //var unsub = db.collection("LoginFields").dor("Events").
+  }
+};
