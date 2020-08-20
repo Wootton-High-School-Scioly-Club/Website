@@ -208,6 +208,18 @@ hr.light-100 {
 #footer .container-fluid {
 	background: none;
 }
+#footer a {
+	color: #D5D5D5;
+}
+#footer a:hover {
+	font-weight: bold;
+	text-decoration: none;
+}
+#footer hr {
+	background-color: #D5D5D5;
+	height: 1.5px;
+	width: 70%;
+}
 
 #SciolyEvents {
 	margin: auto;
@@ -216,6 +228,33 @@ hr.light-100 {
 
 .break-fixed-bg {
 	background: none;
+	height: 600px;
+}
+
+#resources {
+	background: linear-gradient(0deg, rgba(255,255,255,0.7) 75%, rgba(255,255,255,1) 100%);
+	padding-top: 3.5rem;
+}
+#resources hr {
+	border-color: #404040;
+}
+
+.table {
+	background: #fff;
+}
+.table a, .table p {
+	font-size: 1.1rem;
+	word-break: break-word;
+}
+
+.table td {
+	width: 50%;
+}
+
+iframe {
+	width: 100%;
+	resize: vertical;
+	overflow: auto;
 	height: 600px;
 }
 
@@ -228,6 +267,11 @@ hr.light-100 {
 	.social a {
 		font-size: 4em;
 		padding: 2rem;
+	}
+
+	.navbar {
+		padding-right: 1rem;
+		padding-left: 1rem;
 	}
 }
 
@@ -260,6 +304,10 @@ hr.light-100 {
 	.carousel-caption h1 {
 		font-size: 8vw;
 	}
+	
+	#teamsTitle {
+		font-size: 2rem;
+	}
 }
 
 @media (max-width: 576px) {
@@ -290,10 +338,16 @@ hr.light-100 {
 	.welcome {
 		width: 98%;
 	}
-
-	.navbar {
-		padding-right: 1rem;
-		padding-left: 1rem;
+	
+	.table a, .table p {
+		font-size: 0.8rem;
+	}
+	.table td {
+		width: 50%;
+	}
+	
+	#teamsTitle {
+		font-size: 1.5rem;
 	}
 }
 
