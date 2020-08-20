@@ -1,5 +1,8 @@
 
+var peoples;
 var peopledivs = new Map();
+
+
 
 const setupui = (user) => {
   if(user.admin){
@@ -226,12 +229,6 @@ const setupui = (user) => {
                 e.preventDefault();
 
                 e.target.innerHTML = "";
-                var cnode = draggedItem.cloneNode(true);
-                if(cnode.getAttribute("team") !== e.target.getAttribute("team")){
-                  if(!needchanged.has(cnode.getAttribute("uid"))){
-                    needchanged.set(cnode.getAttribute("uid"), e.target.getAttribute("team"));
-                  }
-                }
                 cnode.style.opacity = 1;
                 cnode.style.margin = "0";
                 e.target.appendChild(cnode);
@@ -308,12 +305,6 @@ const setupui = (user) => {
                 e.preventDefault();
 
                 e.target.innerHTML = "";
-                var cnode = draggedItem.cloneNode(true);
-                if(cnode.getAttribute("team") !== e.target.getAttribute("team")){
-                  if(!needchanged.has(cnode.getAttribute("uid"))){
-                    needchanged.set(cnode.getAttribute("uid"), e.target.getAttribute("team"));
-                  }
-                }
                 cnode.style.opacity = 1;
                 cnode.style.margin = "0";
                 e.target.appendChild(cnode);
@@ -342,13 +333,13 @@ const setupui = (user) => {
 
 
 
-    var peoples;
     let p2 = firebase.firestore().collection('Members').get().then(doc => {
       peoples = doc;
       doc.forEach((item, i) => {
+        console.log(item.data().admin);
         var tempperson = addPerson(totpeo, item.data());
         var cloneny = tempperson.cloneNode(true);
-        cloneny.margin = "0";
+        cloneny.style.margin = "0";
         peopledivs.set(item.data().id, cloneny);
         tempperson.addEventListener("dragstart", (e) => {
           draggedItem = tempperson;
@@ -396,11 +387,16 @@ const setupui = (user) => {
         firebase.firestore().collection('Events').doc(item).set(tempobj);
       });
 
-      for(let [key, value] of needchanged){
-        firebase.firestore().collection('Members').doc(key).update({
-          team: value,
-        });
-      }
+
+      peoples.forEach((item, i) => {
+        var persondivs = document.querySelector("table").querySelectorAll("." + item.data().id);
+        if(persondivs.length > 0){
+          //if(persondivs[0].getAttribute("team") !== persondivs[0].parentElement.getAttribute("team")){
+          firebase.firestore().collection('Members').doc(item.data().id).update({
+            team: parseInt(persondivs[0].parentElement.getAttribute("team")),
+          });
+        }
+      });
     });
     //var unsub = db.collection("LoginFields").dor("Events").
   }
@@ -410,10 +406,7 @@ const setrect = (teamnum) => {
   document.querySelector("#recommends").innerHTML = "";
   console.log("called");
   for(let [key, value] of peopledivs) {
-    console.log(value.getAttribute("team"));
-    console.log("teamnum is " + teamnum);
     if(value.getAttribute("team") === teamnum){
-      console.log("match");
       var clonednode = value.cloneNode(true);
       clonednode.margin = "10px 0 0 10px";
       document.querySelector("#recommends").appendChild(clonednode);

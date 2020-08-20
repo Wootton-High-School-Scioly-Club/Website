@@ -12,6 +12,14 @@ auth.onAuthStateChanged(user=>{
 		document.getElementById("whensignedinb").hidden = false;
 		whensignedin.hidden = false;
 		whensignedout.hidden = true;
+		
+		firebase.firestore().collection('Members').doc(user.uid).get().then(doc => {
+			console.log("checked");
+			if(!doc.exists){
+				document.querySelector("#propmtcreat").hidden = false;
+				console.log("done");
+			}
+		});
 	}else{
 		document.getElementById("whensignedinb").hidden = true;
 		whensignedin.hidden = true;

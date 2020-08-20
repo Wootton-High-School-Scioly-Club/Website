@@ -1,5 +1,4 @@
 const functions = firebase.functions();
-functions.useFunctionsEmulator('http://localhost:5001');
 const db = firebase.firestore();
 
 const adminf = document.querySelector('#adminform');
@@ -9,6 +8,10 @@ adminf.addEventListener("submit", (e) => {
   const addadmin = functions.httpsCallable('addAdmin');
   addadmin({email: emaila}).then((result) => {
     console.log(result);
+    db.collection('Members').where('emailf', '==', emaila).update({
+      admin: true,
+    });
+    window.alert(result);
   });
 });
 

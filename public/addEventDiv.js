@@ -51,6 +51,7 @@ var addPerson = (div, doc) => {
   //Create surrounding div
   var tempdiv = document.createElement("div");
   tempdiv.className = "flexed draggablee";
+  tempdiv.classList.add(doc.id);
   tempdiv.setAttribute("draggable", true);
   tempdiv.setAttribute("email", doc.emailf);
   tempdiv.setAttribute("uid", doc.id);
@@ -102,6 +103,7 @@ var addPerson = (div, doc) => {
       tempstr += ", ";
     });
     document.querySelector("#popuppe").innerHTML = tempstr;
+    document.querySelector("#popupnum").innerHTML = document.querySelector("table").querySelectorAll('.' + doc.id).length;
   }
   tempdiv.addEventListener("mouseleave", () => {
     document.querySelector("#ppopup").style.visibility = "hidden";
