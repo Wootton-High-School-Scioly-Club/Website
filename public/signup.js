@@ -54,13 +54,13 @@ fieldsref.doc("ScienceClasses").get().then(function (doc){
       var tempdiv = document.createElement("div");
       var checkb = document.createElement("input");
       checkb.style.margin = "0px 0px 0px 60px";
-      checkb.setAttribute("id", item.id);
+      checkb.setAttribute("id", item.id+'c');
       checkb.setAttribute("type", "checkbox");
       var chelbl = document.createElement("label");
       chelbl.style.margin = "0px 0px 0px 20px";
-      sciencid.push(item.id);
+      sciencid.push(item.id+'c');
       chelbl.appendChild(document.createTextNode(item.name));
-      chelbl.setAttribute("for", item.id);
+      chelbl.setAttribute("for", item.id+"c");
       tempdiv.appendChild(checkb);
       tempdiv.appendChild(chelbl);
       othdiv.appendChild(tempdiv);
@@ -70,8 +70,7 @@ fieldsref.doc("ScienceClasses").get().then(function (doc){
     fieldsdiv.appendChild(tbd);
   }
 });
-fieldsref.doc("Event").get().then((doc) => {
-
+db.collection('Event').get().then((doc) => {
   var tbd = document.createElement("div");
   tbd.className = "form-seg";
   tbd.style.padding = "10px";
@@ -176,6 +175,7 @@ auth.onAuthStateChanged(user => {
             document.getElementById(item).disabled = true;
           }
         });
+        document.querySelector('#statf').checked = map.get('statf');
         map.get("scienceclass").forEach((item, i) => {
           document.getElementById(item).checked = true;
         });
@@ -210,7 +210,7 @@ document.getElementById("signup").addEventListener("click", () => {
           canprocede = false;
         }
       }else{
-        canprocede = false;
+        canprocede = (item === "statf");
       }
     }else{
       if(item === "passwordf"){
@@ -223,6 +223,9 @@ document.getElementById("signup").addEventListener("click", () => {
       }else{
         person.set(item, tex);
       }
+    }
+    if(item === "statf"){
+      person.set(item, document.getElementById(item).checked);
     }
   });
 

@@ -1,3 +1,6 @@
+
+var peopledivs = new Map();
+
 const setupui = (user) => {
   if(user.admin){
     var adminele = document.querySelectorAll('.admin');
@@ -135,10 +138,13 @@ const setupui = (user) => {
     divgrid.appendChild(labnum);
     divgrid.appendChild(inputnum);*/
     var tbl = document.createElement("table");
+
+    tbl.style.height = "50px";
     tbl.style.textAlign = "left";
     var hrow = document.createElement("tr");
     hrow.setAttribute("timb", -1);
     hrow.style.height = "50px";
+    tblheight = 50;
     var teamnumber = 3;
     tbl.style.width = (120 + 350 * teamnumber) + "px";
     tbl.style.margin = "auto";
@@ -148,12 +154,17 @@ const setupui = (user) => {
     hrow.appendChild(lefhead);
     for(var a = 0; a < teamnumber; a ++){
       var temphead = document.createElement("th");
+      temphead.setAttribute("team", a + 1);
+      temphead.addEventListener("click", (e) => {
+        setrect(e.target.getAttribute("team"));
+      });
       temphead.style.width = "350px";
       temphead.colSpan = "6";
       temphead.innerHTML = "Team " + (a + 1);
       hrow.appendChild(temphead);
     }
     tbl.appendChild(hrow);
+    hrow.classList.add("stuck");
     divgrid.appendChild(tbl);
 
     var colors = ["#FF0000", "#FFA500", "#FFFF00", "#00FF00", "#0080FF", "#0000FF", "#AA00FF"];
@@ -161,11 +172,16 @@ const setupui = (user) => {
     var totpeo = document.querySelector("#totalpeople");
     document.querySelector('#ppopup').style.top = "80px";
 
+    var needchanged = new Map();
+
+
     let p1 = firebase.firestore().collection('Event').onSnapshot(doc => {
       let changes = doc.docChanges();
       changes.forEach((item, i) => {
         var tempdoc = item.doc.data();
         if(item.type == 'added'){
+          tblheight += 50;
+          tbl.style.height = tblheight + "px";
           //For the events
           var tempdiv = addeventdiv(divforall, tempdoc);
           tempdiv.classList.add(tempdoc.id);
@@ -196,6 +212,10 @@ const setupui = (user) => {
               var tempd = document.createElement("td");
               tempd.className = (tempdoc.id+(a+1));
               tempd.setAttribute("nameofe", tempdoc.name);
+              tempd.setAttribute("team", (a + 1));
+              tempd.addEventListener("dblclick", (e) => {
+                e.target.innerHTML = "";
+              });
               tempd.addEventListener("dragover", e => {
                 e.preventDefault();
               });
@@ -207,6 +227,11 @@ const setupui = (user) => {
 
                 e.target.innerHTML = "";
                 var cnode = draggedItem.cloneNode(true);
+                if(cnode.getAttribute("team") !== e.target.getAttribute("team")){
+                  if(!needchanged.has(cnode.getAttribute("uid"))){
+                    needchanged.set(cnode.getAttribute("uid"), e.target.getAttribute("team"));
+                  }
+                }
                 cnode.style.opacity = 1;
                 cnode.style.margin = "0";
                 e.target.appendChild(cnode);
@@ -284,6 +309,11 @@ const setupui = (user) => {
 
                 e.target.innerHTML = "";
                 var cnode = draggedItem.cloneNode(true);
+                if(cnode.getAttribute("team") !== e.target.getAttribute("team")){
+                  if(!needchanged.has(cnode.getAttribute("uid"))){
+                    needchanged.set(cnode.getAttribute("uid"), e.target.getAttribute("team"));
+                  }
+                }
                 cnode.style.opacity = 1;
                 cnode.style.margin = "0";
                 e.target.appendChild(cnode);
@@ -313,7 +343,6 @@ const setupui = (user) => {
 
 
     var peoples;
-    var peopledivs = new Map();
     let p2 = firebase.firestore().collection('Members').get().then(doc => {
       peoples = doc;
       doc.forEach((item, i) => {
@@ -341,7 +370,6 @@ const setupui = (user) => {
       eventarr.forEach((event, i) => {
         var aevent = event.data();
         var thiseventcons = document.querySelectorAll('.' + aevent.id);
-        console.log(aevent.id);
         for(var a = 0; a < aevent.memid.length; a ++){
           thiseventcons[a].appendChild(peopledivs.get(aevent.memid[a]).cloneNode(true));
         }
@@ -368,7 +396,27 @@ const setupui = (user) => {
         firebase.firestore().collection('Events').doc(item).set(tempobj);
       });
 
+      for(let [key, value] of needchanged){
+        firebase.firestore().collection('Members').doc(key).update({
+          team: value,
+        });
+      }
     });
     //var unsub = db.collection("LoginFields").dor("Events").
+  }
+};
+
+const setrect = (teamnum) => {
+  document.querySelector("#recommends").innerHTML = "";
+  console.log("called");
+  for(let [key, value] of peopledivs) {
+    console.log(value.getAttribute("team"));
+    console.log("teamnum is " + teamnum);
+    if(value.getAttribute("team") === teamnum){
+      console.log("match");
+      var clonednode = value.cloneNode(true);
+      clonednode.margin = "10px 0 0 10px";
+      document.querySelector("#recommends").appendChild(clonednode);
+    }
   }
 };

@@ -54,6 +54,8 @@ var addPerson = (div, doc) => {
   tempdiv.setAttribute("draggable", true);
   tempdiv.setAttribute("email", doc.emailf);
   tempdiv.setAttribute("uid", doc.id);
+  tempdiv.setAttribute("team", doc.team);
+  tempdiv.setAttribute("nameofp", doc.namef);
   tempdiv.style.width = "100px";
   tempdiv.style.height = "30px";
   tempdiv.style.margin = "10px 0 0 10px";
@@ -85,6 +87,9 @@ var addPerson = (div, doc) => {
     document.querySelector("#ppopupname").innerHTML = doc.namef;
     document.querySelector("#popupgrade").innerHTML = doc.gradef;
     document.querySelector("#popupema").innerHTML = doc.emailf;
+    document.querySelector("#popupteam").innerHTML = doc.team;
+    document.querySelector("#popuppart").innerHTML = doc.partnerf;
+    document.querySelector("#popupstat").innerHTML = doc.statf;
     var tempstr = "";
     doc.scienceclass.forEach((item, i) => {
       tempstr = tempstr + item;
