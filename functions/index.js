@@ -16,3 +16,12 @@ exports.addAdmin = functions.https.onCall((data, context) => {
     return err;
   });
 });
+
+exports.deletedu = functions.auth.user().onDelete(user => {
+  var idofu = user.uid, emofu = user.email;
+  firebase.firestore().collection('Members').doc(idofu).delete().then(() => {
+    console.log("Success! User " + emofu + " doc is cleared. See to it that the events are up to date.");
+  }).catch(e => {
+    console.log("There is an incomplete deletion. Email: " + emofu);
+  });
+});

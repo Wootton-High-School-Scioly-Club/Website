@@ -463,6 +463,16 @@ table, th, td{
 	vertical-align: top;
 }
 
+.posts{
+	border: 1px solid #E0E0E0;
+	border-radius: 10px;
+	width: 600px;
+	text-align: left;
+	padding: 10px;
+	margin: 10px auto 10px auto;
+	
+};
+
 /*
 Extra small (xs) devices (portrait phones, less than 576px)
 No media query since this is the default in Bootstrap
