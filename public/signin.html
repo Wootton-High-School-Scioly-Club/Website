@@ -56,10 +56,13 @@
               <a class="nav-link" id="SignInBtn" href="signin.html">Sign In</a>
             </li>
 
-            <li class="nav-item-active" hidden="true" id="whensignedin">
+            <li class="nav-item-active signedin" hidden="true">
               <a class="nav-link" href="profile.html" class="whensignedinchi">Profile</a>
             </li>
-            <li class="nav-item-active" hidden="true" id="whensignedinb">
+            <li class="nav-item-active signedin" hidden="true">
+              <a class="nav-link" href="post.html" class="whensignedinchi">Posts</a>
+            </li>
+            <li class="nav-item-active signedin" hidden="true">
               <button class="nav-link" id="SignOutBtn" class="whensignedinchi">Sign Out</button>
             </li>
 
@@ -92,17 +95,18 @@
 					<h3 class="display-4" style="margin-bottom: 30px">Sign in With Email</h3>
 				</div>
 				<div class="signindiv">
-          <input type="email" placeholder="Email" id="inpute" class="marging fullen paddin" />
-          <br>
-          <input type="password" id="inputp" placeholder="Password" class="marging paddin fullen"/>
-          <br>
-          <br>
+          <form id="signinform">
+            <input type="email" placeholder="Email" id="inpute" class="marging fullen paddin" />
+            <br>
+            <input type="password" id="inputp" placeholder="Password" class="marging paddin fullen"/>
+            <br>
+            <input id="signin" class="btn-primary marging paddin fullen" type="submit" value="Sign In"></input>
+          </form>
           <a href="signup.html" class="marging paddin fullen leftal">Not a member? Sign up.</a>
           <br>
           <button id="signwithg" class="marging paddin fullen btn-primary">Sign in with Google</button>
-          <br>
-          <button id="signin" class="btn-primary marging paddin fullen" onclick="login()">Sign In</button>
 
+          <p id="errormes" style="color:#AAAAAA;margin-left:10px;text-align:left;width:100%"></p>
 				</div>
 			</div>
 		</div>

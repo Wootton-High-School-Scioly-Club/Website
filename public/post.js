@@ -15,7 +15,6 @@ auth.onAuthStateChanged(user => {
         if(item.type === "added"){
           inflatePost(item.doc.data(), user);
         }
-
       });
     });
 
@@ -27,6 +26,7 @@ auth.onAuthStateChanged(user => {
         text: postform.querySelector("#textinput").value,
         id: user.uid,
         time: firebase.firestore.Timestamp.fromMillis(Date.now()),
+        email: user.email,
       }
       db.collection('Posts').add(obj);
     });
@@ -51,6 +51,7 @@ let bigiv = document.querySelector('#postsdiv');
 let inflatePost = (item, user) => {
   var tempdiv = template.cloneNode(true);
   tempdiv.querySelector(".namep").innerHTML = item.name;
+  tempdiv.querySelector(".emailp").innerHTML = '-' + item.email;
   tempdiv.querySelector(".time").innerHTML = item.time.toDate().toDateString();
   tempdiv.querySelector(".text").innerHTML = item.text;
   bigiv.prepend(tempdiv);

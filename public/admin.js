@@ -1,5 +1,6 @@
 const functions = firebase.functions();
 const db = firebase.firestore();
+//const admin = require("firebase-admin");
 
 const adminf = document.querySelector('#adminform');
 adminf.addEventListener("submit", (e) => {
@@ -7,10 +8,10 @@ adminf.addEventListener("submit", (e) => {
   const emaila = document.querySelector('#admine').value;
   const addadmin = functions.httpsCallable('addAdmin');
   addadmin({email: emaila}).then((result) => {
-    console.log(result);
-    db.collection('Members').where('emailf', '==', emaila).update({
+    console.log(result);/*
+    db.collection('Members').doc(admin.auth().getUserByEmail(emaila).uid).update({
       admin: true,
-    });
+    });*/
     window.alert(result);
   });
 });

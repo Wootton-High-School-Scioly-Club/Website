@@ -1,7 +1,6 @@
-const whensignedin = document.getElementById("whensignedin");
+const signOutBtn = document.querySelector("#SignOutBtn")
 const whensignedout = document.getElementById("whensignedout");
 const signInBtn = document.getElementById("SignInBtn");
-const signOutBtn = document.getElementById("SignOutBtn");
 
 const auth = firebase.auth();
 
@@ -9,10 +8,12 @@ signOutBtn.onclick = () => auth.signOut();
 
 auth.onAuthStateChanged(user=>{
 	if(user){
-		document.getElementById("whensignedinb").hidden = false;
-		whensignedin.hidden = false;
+		document.querySelectorAll(".signedin").forEach((item, i) => {
+			item.hidden = false;
+		});
+
 		whensignedout.hidden = true;
-		
+
 		firebase.firestore().collection('Members').doc(user.uid).get().then(doc => {
 			console.log("checked");
 			if(!doc.exists){
@@ -21,9 +22,10 @@ auth.onAuthStateChanged(user=>{
 			}
 		});
 	}else{
-		document.getElementById("whensignedinb").hidden = true;
-		whensignedin.hidden = true;
 		whensignedout.hidden = false;
+		document.querySelectorAll(".signedin").forEach((item, i) => {
+			item.hidden = true;
+		});
 	}
 });
 
@@ -33,12 +35,14 @@ bod.onload = function(){
   var user = firebase.auth().currentUser;
 
   if(user){
-		document.getElementById("whensignedinb").hidden = false;
-		whensignedin.hidden = false;
 		whensignedout.hidden = true;
+		document.querySelectorAll(".signedin").forEach((item, i) => {
+			item.hidden = false;
+		});
 	}else{
-		document.getElementById("whensignedinb").hidden = true;
-		whensignedin.hidden = true;
 		whensignedout.hidden = false;
+		document.querySelectorAll(".signedin").forEach((item, i) => {
+			item.hidden = true;
+		});
 	}
 };

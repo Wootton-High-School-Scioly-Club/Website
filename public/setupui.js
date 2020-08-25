@@ -83,10 +83,11 @@ const setupui = (user) => {
     formtoadd.appendChild(labelb);
     formtoadd.appendChild(inputb);
 
-    var inputbtn = document.createElement("button");
+    var inputbtn = document.createElement("input");
     inputbtn.className = "btn-primary paddin halfw";
     inputbtn.innerHTML = "Add";
-    inputbtn.addEventListener("click", (e) => {
+    inputbtn.setAttribute("type", "submit");
+    formtoadd.addEventListener("submit", (e) => {
       e.preventDefault();
       var obj = {
         name: inputn.value,
@@ -170,7 +171,7 @@ const setupui = (user) => {
     hrow.classList.add("stuck");
     divgrid.appendChild(tbl);
 
-    var colors = ["#FF0000", "#FFA500", "#FFFF00", "#00FF00", "#0080FF", "#0000FF", "#AA00FF"];
+    var colors = ["#FF5555", "#FFA544", "#FFFF00", "#00FF00", "#00BBFF", "#0099FF", "#AA44FF"];
     var teamsarr = [];
     var totpeo = document.querySelector("#totalpeople");
     document.querySelector('#ppopup').style.top = "80px";
@@ -229,6 +230,7 @@ const setupui = (user) => {
                 e.preventDefault();
 
                 e.target.innerHTML = "";
+                var cnode = draggedItem.cloneNode(true);
                 cnode.style.opacity = 1;
                 cnode.style.margin = "0";
                 e.target.appendChild(cnode);
@@ -268,7 +270,7 @@ const setupui = (user) => {
             it.parentElement.removeChild(it);
           });
           var tempdiv = addeventdiv(divforall, tempdoc);
-          tempdiv.classList.add(tempdic.id);
+          tempdiv.classList.add(tempdoc.id);
           tempdiv.addEventListener("click", () => {
             formtoadd.style.visibility = "visible";
             inputn.value = tempdoc.name;
@@ -305,6 +307,7 @@ const setupui = (user) => {
                 e.preventDefault();
 
                 e.target.innerHTML = "";
+                var cnode = draggedItem.cloneNode(true);
                 cnode.style.opacity = 1;
                 cnode.style.margin = "0";
                 e.target.appendChild(cnode);

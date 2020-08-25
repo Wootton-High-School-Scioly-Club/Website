@@ -56,10 +56,14 @@
               <a class="nav-link" id="SignInBtn" href="signin.html">Sign In</a>
             </li>
 
-            <li class="nav-item-active" hidden="true" id="whensignedin">
+
+            <li class="nav-item-active signedin" hidden="true">
               <a class="nav-link" href="profile.html" class="whensignedinchi">Profile</a>
             </li>
-            <li class="nav-item-active" hidden="true" id="whensignedinb">
+            <li class="nav-item-active signedin" hidden="true">
+              <a class="nav-link" href="post.html" class="whensignedinchi">Posts</a>
+            </li>
+            <li class="nav-item-active signedin" hidden="true">
               <button class="nav-link" id="SignOutBtn" class="whensignedinchi">Sign Out</button>
             </li>
 
@@ -96,16 +100,17 @@
 					<h1>Chatroom</h1>
           <hr>
           <div id="writepost" style="margin:0 auto 30px auto">
-            <form id="writepostf" style="background-color:#E0E0E0; border:grey 1px solid; border-radius:5px; width:600px;margin:0 auto 0 auto;" hidden=true>
-              <input id="nameinput" type="text" style="margin:10px; width:580px; border-radius:5px;" class="paddin" placeholder="Name" required></input>
-              <input id="textinput" type="text" style="margin:10px; width:580px; height:100px; overflow:scroll; vertical-align: top; border-radius: 5px;" required class="paddin" placeholder="Post"></input>
+            <form id="writepostf" style="background-color:#FFFFFF; border:#DDDDDD 1px solid; border-radius:5px; width:600px;margin:0 auto 0 auto;padding:10px;" hidden=true>
+              <input id="nameinput" type="text" style="margin:10px; width:560px;border: none;border-bottom:2px solid #CCCCCC" class="paddin" placeholder="Name" required></input>
+              <input id="textinput" type="text" style="margin:10px; width:560px; height:100px; overflow:scroll; vertical-align: top;border:none; border-bottom:2px solid #CCCCCC;" required class="paddin" placeholder="Post"></input>
 
-              <input type="submit" class="" style="background-color:#D0D0D0; border:grey 1px solid;border-radius:5px;margin:10px;margin-bottom:20px;padding:0 10px 0 10px"></input>
+              <input type="submit" class="" style="background-color:#FFFFFF; border:none;width:560px;text-align: left;font-weight: bold;color:#00BBFF;margin-top:10px;margin-bottom:20px"></input>
             </form>
           </div>
           <hr>
           <div id="template" class="posts" hidden="true">
-            <p class="namep" style="font-weight: bold;margin-bottom:0"></p>
+            <p class="namep" style="font-weight: bold;margin-bottom:0;display:inline"></p>
+            <p class="emailp" style="font-size: smaller;margin-left: 5px;margin-bottom:0;display:inline;color:#AAAAAA;"></p>
             <p class="time" style="font-size: small; color: #AAAAAA; margin:0 0 0 10px"></p>
             <p class="text" style="margin:0 0 10px 10px"></p>
             <button id="comment" style="background-color: #FFFFFF; border: none; color: #00BBFF; display:none;">Comment</button>

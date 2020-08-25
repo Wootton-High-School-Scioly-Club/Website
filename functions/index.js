@@ -9,9 +9,7 @@ exports.addAdmin = functions.https.onCall((data, context) => {
       admin: true
     });
   }).then(() => {
-    return {
-      message: 'Success ' + data.email + ' has been made an admin.'
-    }
+    return user.uid;
   }).catch(err => {
     return err;
   });
@@ -19,9 +17,12 @@ exports.addAdmin = functions.https.onCall((data, context) => {
 
 exports.deletedu = functions.auth.user().onDelete(user => {
   var idofu = user.uid, emofu = user.email;
-  firebase.firestore().collection('Members').doc(idofu).delete().then(() => {
+  return firebase.firestore().collection('Members').doc(idofu).delete().then(() => {
     console.log("Success! User " + emofu + " doc is cleared. See to it that the events are up to date.");
+    return "Success"
   }).catch(e => {
     console.log("There is an incomplete deletion. Email: " + emofu);
+    return "error";
   });
+
 });
