@@ -6,6 +6,8 @@ var peopledivs = new Map();
 
 const setupui = (user) => {
   if(user.admin){
+    let needupdate = [];
+
     var adminele = document.querySelectorAll('.admin');
     adminele.forEach((item, i) => {
       item.hidden = false;
@@ -16,7 +18,7 @@ const setupui = (user) => {
     divforall.style.width = "610px";
     divforall.style.margin = "20px auto 20px auto";
     divforall.style.border = "solid 1px grey";
-    divforall.style.backgroundColor = "#ddd";
+    //divforall.style.backgroundColor = "#ddd";
     divforall.style.borderRadius = "5px";
     divforall.style.paddingBottom = "20px";
     divforall.style.textAlign = "left";
@@ -217,8 +219,10 @@ const setupui = (user) => {
               tempd.className = (tempdoc.id+(a+1));
               tempd.setAttribute("nameofe", tempdoc.name);
               tempd.setAttribute("team", (a + 1));
+              tempd.setAttribute("teamname", tempdoc.id + (a+1));
               tempd.addEventListener("dblclick", (e) => {
                 e.target.innerHTML = "";
+                needupdate.push(e.target.getAttribute("teamname"));
               });
               tempd.addEventListener("dragover", e => {
                 e.preventDefault();
@@ -234,6 +238,9 @@ const setupui = (user) => {
                 cnode.style.opacity = 1;
                 cnode.style.margin = "0";
                 e.target.appendChild(cnode);
+
+                //start here
+                needupdate.push(e.target.getAttribute("teamname"));
               });
               tempd.style.width = (350 / tempdoc.members) + "px";
               tempd.colSpan = (6 / tempdoc.members).toString();
@@ -297,6 +304,13 @@ const setupui = (user) => {
             for(var b = 0; b < tempdoc.members; b ++){
               var tempd = document.createElement("td");
               tempd.className = (tempdoc.id+(a+1));
+              tempd.setAttribute("nameofe", tempdoc.name);
+              tempd.setAttribute("team", (a + 1));
+              tempd.setAttribute("teamname", tempdoc.id + (a+1));
+              tempd.addEventListener("dblclick", (e) => {
+                e.target.innerHTML = "";
+                needupdate.push(e.target.getAttribute("teamname"));
+              });
               tempd.addEventListener("dragover", e => {
                 e.preventDefault();
               });
@@ -311,6 +325,7 @@ const setupui = (user) => {
                 cnode.style.opacity = 1;
                 cnode.style.margin = "0";
                 e.target.appendChild(cnode);
+                needupdate.push(e.target.getAttribute("teamname"));
               });
               tempd.style.width = (350 / tempdoc.members) + "px";
               tempd.colSpan = (6 / tempdoc.members).toString();
@@ -371,7 +386,7 @@ const setupui = (user) => {
     });
 
     document.querySelector("#assignt").addEventListener("click", () => {
-      teamsarr.forEach((item, i) => {
+      needupdate.forEach((item, i) => {
         var surrounddivs = document.querySelectorAll("." + item);
         var tempobj = {
           memid: [],
@@ -388,8 +403,9 @@ const setupui = (user) => {
           }
         });
         firebase.firestore().collection('Events').doc(item).set(tempobj);
+        console.log("update No." + i);
       });
-
+      needupdate = [];
 
       peoples.forEach((item, i) => {
         var persondivs = document.querySelector("table").querySelectorAll("." + item.data().id);

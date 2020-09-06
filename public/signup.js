@@ -77,6 +77,9 @@ db.collection('Event').get().then((doc) => {
   var tht = document.createElement("h4");
   tht.className = "leftal";
   tht.appendChild(document.createTextNode("Please choose at least four preferred events:"));
+  var thtg = document.createElement("p");
+  thtg.className = "gray leftal";
+  thtg.innerHTML = "Drag and drop at least 4 events in the order of your interest";
 
   //create the div that holds the chosen events
   var firdiv = document.createElement("div");
@@ -97,10 +100,10 @@ db.collection('Event').get().then((doc) => {
   });
   firdiv.setAttribute("id", "ansdiv");
   firdiv.style.width = "610px";
-  firdiv.style.height = "260px";
+  firdiv.style.height = "110px";
   firdiv.style.margin = "20px 0px 20px 30px";
   firdiv.style.border = "solid 1px grey";
-  firdiv.style.backgroundColor = "#ddd";
+  //firdiv.style.backgroundColor = "#";
   firdiv.style.borderRadius = "5px";
 
   //create the box that holds the events
@@ -125,6 +128,7 @@ db.collection('Event').get().then((doc) => {
 
 
   tbd.appendChild(tht);
+  tbd.appendChild(thtg);
   tbd.appendChild(firdiv);
   tbd.appendChild(othdiv);
   fieldsdiv.appendChild(tbd);
@@ -253,10 +257,13 @@ document.getElementById("signup").addEventListener("click", () => {
   if(canprocede){
     if(user){
       obj.id = user.uid;
-
       memberref.doc(user.uid).get().then(doc => {
         if(doc.exists){
-          memberref.doc(user.uid).update(obj);
+          memberref.doc(user.uid).update(obj).then(() => {
+            window.alert("Update successful!")
+          }).catch(err => {
+            window.alert("Something went wrong. Please contact Captain or try again later.")
+          });
         }else{
           obj.team = -1;
           memberref.doc(user.uid).set(obj);

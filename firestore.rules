@@ -3,10 +3,10 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     function isadmin(){
-      return get(/databases/$(database)/documents/Members/$(request.auth.uid)).data.admin == true;
+      return request.auth.token.admin == true;
     }
     match /Members/{id}{
-      allow write: if (request.auth.uid == request.resource.data.id && request.resource.data.admin == false) ||
+      allow write: if (request.auth.uid == request.resource.data.id) ||
       isadmin();
       allow read: if request.auth != null
     }
@@ -26,7 +26,7 @@ service cloud.firestore {
     	allow read: if request.auth != null;
       allow create: if (request.auth != null && request.auth.uid == request.resource.data.id);
       allow update: if request.auth != null && (request.auth.uid == post.id || isadmin());
-      
+
     }
     match /Resources/{resource}{
     	allow read;

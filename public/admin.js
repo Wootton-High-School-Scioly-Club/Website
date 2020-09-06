@@ -9,10 +9,10 @@ adminf.addEventListener("submit", (e) => {
   const addadmin = functions.httpsCallable('addAdmin');
   addadmin({email: emaila}).then((result) => {
     console.log(result);/*
-    db.collection('Members').doc(admin.auth().getUserByEmail(emaila).uid).update({
+    db.collection('Members').where('emailf', '==', emaila).update({
       admin: true,
     });*/
-    window.alert(result);
+    window.alert(result.data.message);
   });
 });
 
