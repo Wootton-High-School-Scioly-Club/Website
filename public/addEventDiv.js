@@ -3,14 +3,17 @@ var addeventdiv = (bdiv, item) => {
   tempdiv.className = "flexed draggablee";
   tempdiv.setAttribute("id", item.id);
   tempdiv.style.width = "140px";
-  tempdiv.style.height = "100px";
-  tempdiv.style.margin = "20px 0 0 10px";
+  tempdiv.style.height = "40px";
+  tempdiv.style.margin = "10px 0 0 10px";
   tempdiv.style.border = "solid 1px grey";
   tempdiv.style.borderRadius = "5px";
-  tempdiv.style.backgroundColor = "#eeeeee";
+  tempdiv.style.backgroundColor = "#fefefe";
+  //tempdiv.style.textAlign = "center";
   tempdiv.setAttribute("draggable", true);
   var evename = document.createElement("h5");
-  evename.style.margin = "0 0 0 5px";
+  evename.style.fontSize = "smaller";
+  evename.style.margin = "1px 5px 0 5px";
+  //evename.style.lineHeight = "40px";
   evename.appendChild(document.createTextNode(item.name));
   tempdiv.appendChild(evename);
   bdiv.appendChild(tempdiv);
@@ -51,6 +54,7 @@ var addPerson = (div, doc) => {
   //Create surrounding div
   var tempdiv = document.createElement("div");
   tempdiv.className = "flexed draggablee";
+  tempdiv.classList.add(doc.id);
   tempdiv.setAttribute("draggable", true);
   tempdiv.setAttribute("email", doc.emailf);
   tempdiv.setAttribute("uid", doc.id);
@@ -102,6 +106,7 @@ var addPerson = (div, doc) => {
       tempstr += ", ";
     });
     document.querySelector("#popuppe").innerHTML = tempstr;
+    document.querySelector("#popupnum").innerHTML = document.querySelector("table").querySelectorAll('.' + doc.id).length;
   }
   tempdiv.addEventListener("mouseleave", () => {
     document.querySelector("#ppopup").style.visibility = "hidden";

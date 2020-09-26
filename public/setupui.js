@@ -1,8 +1,13 @@
 
+var peoples;
 var peopledivs = new Map();
+
+
 
 const setupui = (user) => {
   if(user.admin){
+    let needupdate = [];
+
     var adminele = document.querySelectorAll('.admin');
     adminele.forEach((item, i) => {
       item.hidden = false;
@@ -13,7 +18,7 @@ const setupui = (user) => {
     divforall.style.width = "610px";
     divforall.style.margin = "20px auto 20px auto";
     divforall.style.border = "solid 1px grey";
-    divforall.style.backgroundColor = "#ddd";
+    //divforall.style.backgroundColor = "#ddd";
     divforall.style.borderRadius = "5px";
     divforall.style.paddingBottom = "20px";
     divforall.style.textAlign = "left";
@@ -80,10 +85,11 @@ const setupui = (user) => {
     formtoadd.appendChild(labelb);
     formtoadd.appendChild(inputb);
 
-    var inputbtn = document.createElement("button");
+    var inputbtn = document.createElement("input");
     inputbtn.className = "btn-primary paddin halfw";
     inputbtn.innerHTML = "Add";
-    inputbtn.addEventListener("click", (e) => {
+    inputbtn.setAttribute("type", "submit");
+    formtoadd.addEventListener("submit", (e) => {
       e.preventDefault();
       var obj = {
         name: inputn.value,
@@ -167,7 +173,7 @@ const setupui = (user) => {
     hrow.classList.add("stuck");
     divgrid.appendChild(tbl);
 
-    var colors = ["#FF0000", "#FFA500", "#FFFF00", "#00FF00", "#0080FF", "#0000FF", "#AA00FF"];
+    var colors = ["#FF5555", "#FFA544", "#FFFF00", "#00FF00", "#00BBFF", "#0099FF", "#AA44FF"];
     var teamsarr = [];
     var totpeo = document.querySelector("#totalpeople");
     document.querySelector('#ppopup').style.top = "80px";
@@ -213,8 +219,10 @@ const setupui = (user) => {
               tempd.className = (tempdoc.id+(a+1));
               tempd.setAttribute("nameofe", tempdoc.name);
               tempd.setAttribute("team", (a + 1));
+              tempd.setAttribute("teamname", tempdoc.id + (a+1));
               tempd.addEventListener("dblclick", (e) => {
                 e.target.innerHTML = "";
+                needupdate.push(e.target.getAttribute("teamname"));
               });
               tempd.addEventListener("dragover", e => {
                 e.preventDefault();
@@ -227,14 +235,12 @@ const setupui = (user) => {
 
                 e.target.innerHTML = "";
                 var cnode = draggedItem.cloneNode(true);
-                if(cnode.getAttribute("team") !== e.target.getAttribute("team")){
-                  if(!needchanged.has(cnode.getAttribute("uid"))){
-                    needchanged.set(cnode.getAttribute("uid"), e.target.getAttribute("team"));
-                  }
-                }
                 cnode.style.opacity = 1;
                 cnode.style.margin = "0";
                 e.target.appendChild(cnode);
+
+                //start here
+                needupdate.push(e.target.getAttribute("teamname"));
               });
               tempd.style.width = (350 / tempdoc.members) + "px";
               tempd.colSpan = (6 / tempdoc.members).toString();
@@ -271,7 +277,7 @@ const setupui = (user) => {
             it.parentElement.removeChild(it);
           });
           var tempdiv = addeventdiv(divforall, tempdoc);
-          tempdiv.classList.add(tempdic.id);
+          tempdiv.classList.add(tempdoc.id);
           tempdiv.addEventListener("click", () => {
             formtoadd.style.visibility = "visible";
             inputn.value = tempdoc.name;
@@ -298,6 +304,13 @@ const setupui = (user) => {
             for(var b = 0; b < tempdoc.members; b ++){
               var tempd = document.createElement("td");
               tempd.className = (tempdoc.id+(a+1));
+              tempd.setAttribute("nameofe", tempdoc.name);
+              tempd.setAttribute("team", (a + 1));
+              tempd.setAttribute("teamname", tempdoc.id + (a+1));
+              tempd.addEventListener("dblclick", (e) => {
+                e.target.innerHTML = "";
+                needupdate.push(e.target.getAttribute("teamname"));
+              });
               tempd.addEventListener("dragover", e => {
                 e.preventDefault();
               });
@@ -309,14 +322,10 @@ const setupui = (user) => {
 
                 e.target.innerHTML = "";
                 var cnode = draggedItem.cloneNode(true);
-                if(cnode.getAttribute("team") !== e.target.getAttribute("team")){
-                  if(!needchanged.has(cnode.getAttribute("uid"))){
-                    needchanged.set(cnode.getAttribute("uid"), e.target.getAttribute("team"));
-                  }
-                }
                 cnode.style.opacity = 1;
                 cnode.style.margin = "0";
                 e.target.appendChild(cnode);
+                needupdate.push(e.target.getAttribute("teamname"));
               });
               tempd.style.width = (350 / tempdoc.members) + "px";
               tempd.colSpan = (6 / tempdoc.members).toString();
@@ -342,13 +351,13 @@ const setupui = (user) => {
 
 
 
-    var peoples;
     let p2 = firebase.firestore().collection('Members').get().then(doc => {
       peoples = doc;
       doc.forEach((item, i) => {
+        console.log(item.data().admin);
         var tempperson = addPerson(totpeo, item.data());
         var cloneny = tempperson.cloneNode(true);
-        cloneny.margin = "0";
+        cloneny.style.margin = "0";
         peopledivs.set(item.data().id, cloneny);
         tempperson.addEventListener("dragstart", (e) => {
           draggedItem = tempperson;
@@ -377,7 +386,7 @@ const setupui = (user) => {
     });
 
     document.querySelector("#assignt").addEventListener("click", () => {
-      teamsarr.forEach((item, i) => {
+      needupdate.forEach((item, i) => {
         var surrounddivs = document.querySelectorAll("." + item);
         var tempobj = {
           memid: [],
@@ -394,13 +403,19 @@ const setupui = (user) => {
           }
         });
         firebase.firestore().collection('Events').doc(item).set(tempobj);
+        console.log("update No." + i);
       });
+      needupdate = [];
 
-      for(let [key, value] of needchanged){
-        firebase.firestore().collection('Members').doc(key).update({
-          team: value,
-        });
-      }
+      peoples.forEach((item, i) => {
+        var persondivs = document.querySelector("table").querySelectorAll("." + item.data().id);
+        if(persondivs.length > 0){
+          //if(persondivs[0].getAttribute("team") !== persondivs[0].parentElement.getAttribute("team")){
+          firebase.firestore().collection('Members').doc(item.data().id).update({
+            team: parseInt(persondivs[0].parentElement.getAttribute("team")),
+          });
+        }
+      });
     });
     //var unsub = db.collection("LoginFields").dor("Events").
   }
@@ -410,10 +425,7 @@ const setrect = (teamnum) => {
   document.querySelector("#recommends").innerHTML = "";
   console.log("called");
   for(let [key, value] of peopledivs) {
-    console.log(value.getAttribute("team"));
-    console.log("teamnum is " + teamnum);
     if(value.getAttribute("team") === teamnum){
-      console.log("match");
       var clonednode = value.cloneNode(true);
       clonednode.margin = "10px 0 0 10px";
       document.querySelector("#recommends").appendChild(clonednode);

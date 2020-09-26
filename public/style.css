@@ -458,7 +458,7 @@ input[type=email], input[type=password], input[type=text], input[type=number] {
 }
 
 input.inpu{
-	width: 200px;
+	width: 300px;
   border: 1px solid #ccc;
 	border-style: none none solid none;
 	margin-left: 30px;
@@ -497,6 +497,16 @@ table, th, td{
 	display: inline-block;
 	vertical-align: top;
 }
+
+.posts{
+	border: 1px solid #E0E0E0;
+	border-radius: 10px;
+	width: 600px;
+	text-align: left;
+	padding: 10px;
+	margin: 10px auto 10px auto;
+
+};
 
 /*
 Extra small (xs) devices (portrait phones, less than 576px)

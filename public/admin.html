@@ -57,10 +57,13 @@
               <a class="nav-link" id="SignInBtn" href="signin.html">Sign In</a>
             </li>
 
-            <li class="nav-item-active" hidden="true" id="whensignedin">
+            <li class="nav-item-active signedin" hidden="true">
               <a class="nav-link" href="profile.html" class="whensignedinchi">Profile</a>
             </li>
-            <li class="nav-item-active" hidden="true" id="whensignedinb">
+            <li class="nav-item-active signedin" hidden="true">
+              <a class="nav-link" href="post.html" class="whensignedinchi">Posts</a>
+            </li>
+            <li class="nav-item-active signedin" hidden="true">
               <button class="nav-link" id="SignOutBtn" class="whensignedinchi">Sign Out</button>
             </li>
 
@@ -101,12 +104,12 @@
           <form class = "admin" id="adminform" hidden="true">
             <h3>Provide Email to Add Admin</h3>
             <input style="width:500px;padding:10px;margin:20px" type="email" placeholder="Email" id="admine" required /><br>
-            <button style="padding:10px;margin-bottom:30px" class="btn-primary" id="addadmin">Add Admin</button>
+            <input type="submit" style="padding:10px;margin-bottom:30px" class="btn-primary" value="Add Admin"></input>
           </form style="margin:60px">
           <hr>
           <div id="eventsdiv" class="admin" hidden="true">
           </div>
-            <button id="addeven" class="btn-primary paddin">Add Event</button>
+            <button id="addeven" class="btn-primary paddin admin" hidden="true">Add Event</button>
           <hr>
 
           <div class="fstuck admin" hidden="true">
@@ -139,7 +142,9 @@
             <br>
             <p class="flexedd"><b>Taken Stat: </b></p>
             <p id="popupstat" class="flexedd"></p>
-
+            <br>
+            <p class="flexedd"><b>Number of Events: </b></p>
+            <p id="popupnum" class="flexedd"></p>
           </div>
           <hr>
 				</div>
