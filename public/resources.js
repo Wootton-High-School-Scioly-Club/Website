@@ -2,10 +2,14 @@ const functions = firebase.functions;
 //functions.useFunctionsEmulator('http://localhost:5001');
 var db = firebase.firestore();
 
-if (firebase.auth().currentUser == null) {
+var user = firebase.auth().currentUser;
+
+firebase.auth().onAuthStateChanged(user => {
+  if(user == null){
 	var remove = document.getElementById("addResourceDropdownBtn");
 	remove.parentNode.removeChild(remove);
-}
+  }
+});
 
 // Add Resource
 $("#addResourceBtn").click(function(){

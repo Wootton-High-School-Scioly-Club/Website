@@ -12,6 +12,7 @@ function largestEventCards(){
 
 	for(i=0; i<eventCards1.length; i++){
 		if(eventCards1[i].offsetHeight > height){
+			console.log(eventCards1[i].offsetHeight);
 			height = eventCards1[i].offsetHeight;
 			largestCard1 = i;
 		}
