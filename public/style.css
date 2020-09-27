@@ -303,6 +303,41 @@ hr.light-100 {
 	height: 600px;
 }
 
+#resources {
+	background: linear-gradient(0deg, rgba(255,255,255,0.7) 75%, rgba(255,255,255,1) 100%);
+	padding-top: 3.5rem;
+}
+#resources hr {
+	border-color: #404040;
+}
+
+#alert_placeholder {
+	position: fixed;
+	left:1%;
+	width: 98%;
+	top: 5px;
+	z-index: 9999;
+}
+
+.table {
+	background: #fff;
+}
+.table a, .table p {
+	font-size: 1.1rem;
+	word-break: break-word;
+}
+
+.table td {
+	width: 50%;
+}
+
+iframe {
+	width: 100%;
+	resize: vertical;
+	overflow: auto;
+	height: 600px;
+}
+
 .popupdivs{
 	position: fixed;
 	left: 20px;
