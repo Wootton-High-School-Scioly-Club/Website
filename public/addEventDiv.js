@@ -1,3 +1,14 @@
+function sanitize(input) {
+	input = input.split("&").join("&amp;");
+	input = input.split("<").join("&lt;");
+	input = input.split(">").join("&gt;");
+	input = input.split('"').join("&quot;");
+	input = input.split("'").join("&apos;");
+	input = input.split("/").join("&#x2F;");
+
+	return input;
+}
+
 var addeventdiv = (bdiv, item) => {
   var tempdiv = document.createElement("div");
   tempdiv.className = "flexed draggablee";
@@ -56,10 +67,10 @@ var addPerson = (div, doc) => {
   tempdiv.className = "flexed draggablee";
   tempdiv.classList.add(doc.id);
   tempdiv.setAttribute("draggable", true);
-  tempdiv.setAttribute("email", doc.emailf);
+  tempdiv.setAttribute("email", sanitize(doc.emailf));
   tempdiv.setAttribute("uid", doc.id);
   tempdiv.setAttribute("team", doc.team);
-  tempdiv.setAttribute("nameofp", doc.namef);
+  tempdiv.setAttribute("nameofp", sanitize(doc.namef));
   tempdiv.style.width = "100px";
   tempdiv.style.height = "30px";
   tempdiv.style.margin = "10px 0 0 10px";
@@ -88,11 +99,11 @@ var addPerson = (div, doc) => {
 
   tempdiv.onmouseover = () => {
     document.querySelector("#ppopup").style.visibility = "visible";
-    document.querySelector("#ppopupname").innerHTML = doc.namef;
+    document.querySelector("#ppopupname").innerHTML = sanitize(doc.namef);
     document.querySelector("#popupgrade").innerHTML = doc.gradef;
-    document.querySelector("#popupema").innerHTML = doc.emailf;
+    document.querySelector("#popupema").innerHTML = sanitize(doc.emailf);
     document.querySelector("#popupteam").innerHTML = doc.team;
-    document.querySelector("#popuppart").innerHTML = doc.partnerf;
+    document.querySelector("#popuppart").innerHTML = sanitize(doc.partnerf);
     document.querySelector("#popupstat").innerHTML = doc.statf;
     var tempstr = "";
     doc.scienceclass.forEach((item, i) => {

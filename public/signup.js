@@ -207,6 +207,15 @@ document.getElementById("signup").addEventListener("click", () => {
 
   inputsid.forEach((item, i) => {
     var tex = document.getElementById(item).value;
+	if(item[item.length-1] === "f" && item != "statf") {
+	  // SANITIZE
+	  tex = tex.split("&").join("&amp;");
+	  tex = tex.split("<").join("&lt;");
+	  tex = tex.split(">").join("&gt;");
+	  tex = tex.split('"').join("&quot;");
+	  tex = tex.split("'").join("&apos;");
+	  tex = tex.split("/").join("&#x2F;");
+	}
     if(tex.length < 1){
       if(item === "passwordf"){
         if(!user){
