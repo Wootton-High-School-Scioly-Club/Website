@@ -53,19 +53,19 @@
 
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 					<ul class="navbar-nav ml-auto">
-            <li class = "nav-item-active" id="whensignedout">
-              <a class="nav-link" id="SignInBtn" href="signin.html">Sign In</a>
-            </li>
+						<li class = "nav-item-active" id="whensignedout">
+						  <a class="nav-link" id="SignInBtn" href="signin.html">Sign In</a>
+						</li>
 
-            <li class="nav-item-active signedin" hidden="true">
-              <a class="nav-link" href="profile.html" class="whensignedinchi">Profile</a>
-            </li>
-            <li class="nav-item-active signedin" hidden="true">
-              <a class="nav-link" href="post.html" class="whensignedinchi">Posts</a>
-            </li>
-            <li class="nav-item-active signedin" hidden="true">
-              <button class="nav-link" id="SignOutBtn" class="whensignedinchi">Sign Out</button>
-            </li>
+						<li class="nav-item-active signedin" hidden="true">
+						  <a class="nav-link" href="profile.html" class="whensignedinchi">Profile</a>
+						</li>
+						<li class="nav-item-active signedin" hidden="true">
+						  <a class="nav-link" href="post.html" class="whensignedinchi">Posts</a>
+						</li>
+						<li class="nav-item-active signedin" hidden="true">
+						  <button class="nav-link" id="SignOutBtn" class="whensignedinchi">Sign Out</button>
+						</li>
 
 						<li class="nav-item">
 							<a class="nav-link" href="index.html">Home</a>
@@ -97,13 +97,14 @@
 		<div class="container-fluid padding">
 			<div class="row text-center" style="width: 100%">
 				<div class="col-12">
-					<h1>And get the most expensive machine, in case the administrator comes.</h1>
+					<!-- h1>And get the most expensive machine, in case the administrator comes.</h1 -->
+					<h1>Admin</h1>
 				</div>
 				<hr>
 				<div class="col-12" style="width: 100%; margin: auto; padding-top: 2rem; text-align: center; height: 100%">
           <form class = "admin" id="adminform" hidden="true">
             <h3>Provide Email to Add Admin</h3>
-            <input style="width:500px;padding:10px;margin:20px" type="email" placeholder="Email" id="admine" required /><br>
+            <input style="max-width:500px;width:90%;padding:10px;margin:20px" type="email" placeholder="Email" id="admine" required /><br>
             <input type="submit" style="padding:10px;margin-bottom:30px" class="btn-primary" value="Add Admin"></input>
           </form style="margin:60px">
           <hr>
@@ -118,9 +119,9 @@
             </div>
           </div>
 
-          <div id="eventgrid" class="admin" hidden="true" style="width: 100%; margin-bottom: 30px"></div>
-          <button style="margin-left: auto; margin-right: auto" class="btn-primary paddin admin" id="assignt" hidden="true">Assign Teams</button>
-          <div class="admin popupdivs" id="ppopup" hidden="true" style="visibility: hidden">
+          <div id="eventgrid" class="admin" hidden="true" style="width: 100%; margin-bottom: 30px; padding-left: 15px;"></div>
+          <button style="margin: auto;" class="btn-primary paddin admin" id="assignt" hidden="true">Assign Teams</button>
+		  <div class="admin popupdivs" id="ppopup" hidden="true" style="visibility: hidden">
             <h2 id="ppopupname" style="display: inline; width: 100%; margin-bottom: 20px" class="flexedd"></h2><br><br>
             <p class="flexedd"><b>Grade: </b></p>
             <p id="popupgrade" class="flexedd"></p>

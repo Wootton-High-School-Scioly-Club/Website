@@ -109,6 +109,7 @@ html, body {
 
 .marging {
 	margin: 10px;
+	margin-left: 0;
 }
 
 .margin-h{
@@ -488,6 +489,16 @@ input.inpu{
 		margin-left: 10px;
 		width: 90%;
 	}
+	
+	.fixedform{
+		width: 90%;
+		/*margin: 0px 0 0 -200px;
+		left: 50%;
+		top: 80px;
+		padding: 10px;*/
+		left: 0;
+		margin-left: 15px;
+	}
 }
 
 
@@ -522,9 +533,9 @@ table, th, td{
 	position: fixed;
 	z-index: 3;
 	bottom: 0px;
-	width: 1000px;
-	left: 50%;
-	margin-left: -500px;
+	width: 100%;
+	/* max-width: 1000px; */
+	margin-left: -16px;
 }
 
 .stuck{

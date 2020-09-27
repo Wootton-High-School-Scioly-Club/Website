@@ -15,7 +15,8 @@ const setupui = (user) => {
     //firebase.firestore().collection("Event").get().then(doc => {
       //if(doc.exists){
     var divforall = document.querySelector('#eventsdiv');
-    divforall.style.width = "610px";
+    divforall.style.maxWidth = "610px";
+	divforall.style.width = "90%";
     divforall.style.margin = "20px auto 20px auto";
     divforall.style.border = "solid 1px grey";
     //divforall.style.backgroundColor = "#ddd";
@@ -152,8 +153,9 @@ const setupui = (user) => {
     hrow.style.height = "50px";
     tblheight = 50;
     var teamnumber = 3;
-    tbl.style.width = (120 + 350 * teamnumber) + "px";
-    tbl.style.margin = "auto";
+    tbl.style.maxWidth = (120 + 350 * teamnumber) + "px";
+    tbl.style.width = "100%";
+	tbl.style.margin = "auto";
     var lefhead = document.createElement("th");
     lefhead.style.width = "120px";
     lefhead.innerHTML = "Event";
