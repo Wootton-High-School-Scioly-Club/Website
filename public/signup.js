@@ -18,7 +18,7 @@ rfields.get().then(function(doc){
   if(doc.exists){
     doc.data().fields.forEach((item, i) => {
       var bigdiv = document.createElement("div");
-      bigdiv.style.padding = "10px";
+      //bigdiv.style.padding = "10px";
       bigdiv.className = "form-seg";
       var tith = document.createElement("h4");
       tith.className = "leftal";
@@ -53,7 +53,7 @@ fieldsref.doc("ScienceClasses").get().then(function (doc){
     doc.data().classes.forEach((item, i) => {
       var tempdiv = document.createElement("div");
       var checkb = document.createElement("input");
-      checkb.style.margin = "0px 0px 0px 60px";
+      //checkb.style.margin = "0px 0px 0px 60px";
       checkb.setAttribute("id", item.id+'c');
       checkb.setAttribute("type", "checkbox");
       var chelbl = document.createElement("label");
@@ -99,9 +99,9 @@ db.collection('Event').get().then((doc) => {
     //firdiv.appendChild(draggedItem);
   });
   firdiv.setAttribute("id", "ansdiv");
-  firdiv.style.width = "610px";
-  firdiv.style.height = "110px";
-  firdiv.style.margin = "20px 0px 20px 30px";
+  //firdiv.style.width = "610px";
+  //firdiv.style.height = "110px";
+  //firdiv.style.margin = "20px 0px 20px 30px";
   firdiv.style.border = "solid 1px grey";
   //firdiv.style.backgroundColor = "#";
   firdiv.style.borderRadius = "5px";
@@ -124,7 +124,7 @@ db.collection('Event').get().then((doc) => {
     //othdiv.appendChild(draggedItem);
   });
   othdiv.style.margin = "20px 0px 20px 30px";
-  othdiv.style.width = "610px";
+  othdiv.style.maxWidth = "610px";
 
 
   tbd.appendChild(tht);
@@ -218,7 +218,7 @@ document.getElementById("signup").addEventListener("click", () => {
     }else{
       if(item === "passwordf"){
         if(tex.length < 6 && !user){
-          window.alert("Password must contain at least 6 characters!");
+          Alert("Password must contain at least 6 characters!", "alert-danger");
         }
         else{
           person.set(item, tex);
@@ -259,21 +259,21 @@ document.getElementById("signup").addEventListener("click", () => {
       memberref.doc(user.uid).get().then(doc => {
         if(doc.exists){
           memberref.doc(user.uid).update(obj).then(() => {
-            window.alert("Update successful!");
+            Alert("Update successful!", "alert-success");
           }).catch(err => {
-            window.alert("Something went wrong. Please contact Captain or try again later.")
+            Alert("Something went wrong. Please contact Captain or try again later.", "alert-danger");
           });
         }else{
           obj.team = -1;
           memberref.doc(user.uid).set(obj).then(() => {
-            window.alert("Profile created!");
+            Alert("Profile created!", "alert-success");
           });
         }
       });
     }else{
       memberref.where("emailf", "==", person.get("emailf")).get().then((doc) => {
         if(doc.exists){
-          window.alert("Account already exists. Please sign in to update profile.");
+          Alert("Account already exists. Please sign in to update profile.", "alert-info");
         }else{
           firebase.auth().createUserWithEmailAndPassword(person.get("emailf"), person.get("passwordf")).then((cred) => {
             obj.team = -1;
@@ -285,7 +285,7 @@ document.getElementById("signup").addEventListener("click", () => {
       });
     }
   }else{
-    window.alert("Please complete all fields.");
+    Alert("Please complete all fields.", "alert-danger");
   }
 });
 
@@ -308,3 +308,12 @@ var getAftel = function(containe, mx, my){
     }
   }, {offset: Number.NEGATIVE_INFINITY}).element;
 };
+
+
+function Alert(message, type) {
+$('#alert_placeholder').append('<div id="Alert" class="alert ' + type + ' alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><span>' + message + ' </span></div>')
+	
+	setTimeout(function() { // Close the alert in 5 seconds
+		$("#Alert").alert('close');
+	}, 5000);
+}
