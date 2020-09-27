@@ -41,7 +41,7 @@
 
 
 		<!-- Navbar -->
-		<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+		<nav class="navbar navbar-expand-xl navbar-light bg-light sticky-top">
 			<div class="container-fluid bg-light">
 
 				<a class="navbar-brand" href="#"><img src="img/Science Olympiad Logo.jpg" width="65%" height="65%"/></a>
@@ -51,21 +51,25 @@
 				</button>
 
 				<div class="collapse navbar-collapse" id="navbarResponsive">
+				<br>
+					<ul class="navbar-nav navbar-left">
+					
+						<li class = "nav-item-active active" id="whensignedout">
+						  <a class="nav-link" id="SignInBtn" href="#">Sign In</a>
+						</li>
+
+						<li class="nav-item-active signedin" hidden="true">
+						  <button class="nav-link" id="SignOutBtn" class="whensignedinchi" style="border:none; background:inherit;">Sign Out</button>
+						</li>
+						<li class="nav-item-active signedin" hidden="true">
+						  <a class="nav-link" href="profile.html" class="whensignedinchi">Profile</a>
+						</li>
+						<li class="nav-item-active signedin" hidden="true">
+						  <a class="nav-link" href="post.html" class="whensignedinchi">Posts</a>
+						</li>
+					</ul>
+					<hr>
 					<ul class="navbar-nav ml-auto">
-            <li class = "nav-item-active active" id="whensignedout">
-              <a class="nav-link" id="SignInBtn" href="#">Sign In</a>
-            </li>
-
-            <li class="nav-item-active signedin" hidden="true">
-              <a class="nav-link" href="profile.html" class="whensignedinchi">Profile</a>
-            </li>
-            <li class="nav-item-active signedin" hidden="true">
-              <a class="nav-link" href="post.html" class="whensignedinchi">Posts</a>
-            </li>
-            <li class="nav-item-active signedin" hidden="true">
-              <button class="nav-link" id="SignOutBtn" class="whensignedinchi">Sign Out</button>
-            </li>
-
 						<li class="nav-item">
 							<a class="nav-link" href="index.html">Home</a>
 						</li>
@@ -75,6 +79,7 @@
 						<li class="nav-item">
 							<a class="nav-link" href="resources.html">Resources</a>
 						</li>
+						
 						<li class="nav-item">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								Other Links

@@ -11,6 +11,10 @@ html, body {
 	padding-right: 4rem;
 	padding-left: 4rem;
 }
+.navbar-left {
+	position: absolute;
+	left: 0.5 em;
+}
 .navbar-nav li {
 	padding-top: 0.4rem;
 	padding-bottom: 0.4rem;
@@ -22,6 +26,10 @@ html, body {
 .navbar-brand img {
 	margin-top: -0.6rem;
 	margin-bottom: -0.55rem;
+}
+.navbar hr {
+	border: none;
+    width: 0;
 }
 
 .carousel-inner img {
@@ -378,7 +386,15 @@ input.inpu{
 }
 
 /*---Media Queries --*/
-@media (max-width: 1390px) {
+@media (max-width: 1199px) {
+	.navbar-left {
+		position: relative;
+		margin-left:0;
+	}
+	.navbar hr {
+		border-top: 1px solid #b4b4b4;
+		width: 100%;
+	}
 }
 
 @media (max-width: 992px) {
