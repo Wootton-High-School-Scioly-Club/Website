@@ -12,7 +12,6 @@ function largestEventCards(){
 
 	for(i=0; i<eventCards1.length; i++){
 		if(eventCards1[i].offsetHeight > height){
-			console.log(eventCards1[i].offsetHeight);
 			height = eventCards1[i].offsetHeight;
 			largestCard1 = i;
 		}
@@ -69,14 +68,16 @@ function eventsCardResize(cardClassName) {
 	}
 }
 
-window.onresize = function() {
-	eventsCardResize("sciolyEventCard");
-	eventsCardResize("sciolyEventCard2");
-};
 
-window.onload = function() {
-	largestEventCards()
-}
+// Resize event cards on page resize
+window.addEventListener ? 
+window.addEventListener("resize",function(){eventsCardResize("sciolyEventCard");eventsCardResize("sciolyEventCard2");},false) : 
+window.attachEvent && window.attachEvent("onresize",function(){eventsCardResize("sciolyEventCard");eventsCardResize("sciolyEventCard2");});
+
+// Find largest event card on page load
+window.addEventListener ? 
+window.addEventListener("load",largestEventCards,false) : 
+window.attachEvent && window.attachEvent("onload",largestEventCards);
 
 
 // Reveal Animation
