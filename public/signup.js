@@ -169,7 +169,6 @@ db.collection('Event').get().then((doc) => {
 auth.onAuthStateChanged(user => {
   if(user){
     var id = user.uid;
-
     db.collection("Members").doc(user.uid).get().then((doc) => {
       if(doc.exists){
         const map = new Map(Object.entries(doc.data()));
@@ -213,8 +212,8 @@ document.getElementById("signup").addEventListener("click", () => {
         if(!user){
           canprocede = false;
         }
-      }else{
-        canprocede = (item === "statf");
+      }else if(item != "statf"){
+        canprocede = false;
       }
     }else{
       if(item === "passwordf"){
@@ -260,13 +259,15 @@ document.getElementById("signup").addEventListener("click", () => {
       memberref.doc(user.uid).get().then(doc => {
         if(doc.exists){
           memberref.doc(user.uid).update(obj).then(() => {
-            window.alert("Update successful!")
+            window.alert("Update successful!");
           }).catch(err => {
             window.alert("Something went wrong. Please contact Captain or try again later.")
           });
         }else{
           obj.team = -1;
-          memberref.doc(user.uid).set(obj);
+          memberref.doc(user.uid).set(obj).then(() => {
+            window.alert("Profile created!");
+          });
         }
       });
     }else{
