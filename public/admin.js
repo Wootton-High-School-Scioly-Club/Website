@@ -14,6 +14,7 @@ adminf.addEventListener("submit", (e) => {
     });*/
     window.alert(result.data.message);
   });
+  console.log(emaila);
 });
 
 auth.onAuthStateChanged(user => {
@@ -21,6 +22,8 @@ auth.onAuthStateChanged(user => {
     user.getIdTokenResult().then(idtoken => {
       user.admin = idtoken.claims.admin;
       setupui(user);
+      console.log(user.admin);
     });
+    console.log("working");
   }
 });

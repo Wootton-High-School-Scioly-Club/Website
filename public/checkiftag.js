@@ -17,8 +17,10 @@ auth.onAuthStateChanged(user=>{
 		firebase.firestore().collection('Members').doc(user.uid).get().then(doc => {
 			console.log("checked");
 			if(!doc.exists){
-				document.querySelector("#propmtcreat").hidden = false;
-				console.log("done");
+				try{
+					document.querySelector("#propmtcreat").hidden = false;
+					console.log("done");
+				}catch{}
 			}
 		});
 	}else{
