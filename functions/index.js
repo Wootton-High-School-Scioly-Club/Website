@@ -1,9 +1,10 @@
 const functions = require('firebase-functions');
 
 const admin = require('firebase-admin');
-admin.initializeApp();
+admin.initializeApp(functions.config().firebase);
 
 const db = admin.firestore();
+
 
 exports.addAdmin = functions.https.onCall((data, context) => {
   return admin.auth().getUserByEmail(data.email).then((user) => {
@@ -27,5 +28,6 @@ exports.deletedu = functions.auth.user().onDelete(user => {
     console.log("There is an incomplete deletion. Email: " + emofu);
     return "error";
   });
-
 });
+
+

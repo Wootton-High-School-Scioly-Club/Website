@@ -99,7 +99,7 @@ db.collection('Event').get().then((doc) => {
     //firdiv.appendChild(draggedItem);
   });
   firdiv.setAttribute("id", "ansdiv");
-  //firdiv.style.width = "610px";
+  firdiv.style.width = "610px";
   //firdiv.style.height = "110px";
   //firdiv.style.margin = "20px 0px 20px 30px";
   firdiv.style.border = "solid 1px grey";

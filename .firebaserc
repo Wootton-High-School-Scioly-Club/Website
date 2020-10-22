@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "scioly-4e06d"
+  },
+  "targets": {
+    "scioly-4e06d": {
+      "hosting": {
+        "new": [
+          "woottonscioly"
+        ],
+        "old": [
+          "scioly-4e06d"
+        ]
+      }
+    }
   }
 }
