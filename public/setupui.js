@@ -363,6 +363,7 @@ const setupui = (user) => {
         peopledivs.set(item.data().id, cloneny);
         tempperson.addEventListener("dragstart", (e) => {
           draggedItem = tempperson;
+          document.querySelector("#ppopup").style.visibility = "hidden";
           draggedItem.style.opacity = "0.5";
         });
         tempperson.addEventListener("dragend", e => {
@@ -425,11 +426,22 @@ const setupui = (user) => {
 
 const setrect = (teamnum) => {
   document.querySelector("#recommends").innerHTML = "";
-  console.log("called");
+  //console.log("called");
   for(let [key, value] of peopledivs) {
     if(value.getAttribute("team") === teamnum){
       var clonednode = value.cloneNode(true);
-      clonednode.margin = "10px 0 0 10px";
+      clonednode.style.margin = "10px 0px 10px 10px";
+      clonednode.addEventListener("dragstart", (e) => {
+        draggedItem = clonednode;
+        document.querySelector("#ppopup").style.visibility = "hidden";
+        draggedItem.style.opacity = "0.5";
+      });
+      clonednode.addEventListener("dragend", e => {
+        draggedItem.style.opacity =  "1";
+        setTimeout(() => {
+          draggedItem = null;
+        }, 0);
+      });
       document.querySelector("#recommends").appendChild(clonednode);
     }
   }

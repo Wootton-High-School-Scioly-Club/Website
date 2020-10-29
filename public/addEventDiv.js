@@ -105,6 +105,8 @@ var addPerson = (div, doc) => {
     document.querySelector("#popupteam").innerHTML = doc.team;
     document.querySelector("#popuppart").innerHTML = sanitize(doc.partnerf);
     document.querySelector("#popupstat").innerHTML = doc.statf;
+    document.querySelector("#popuppho").innerHTML = (doc.canphoto);
+    document.querySelector("#popupaward").innerHTML = sanitize(doc.awrdf);
     var tempstr = "";
     doc.scienceclass.forEach((item, i) => {
       tempstr = tempstr + item;

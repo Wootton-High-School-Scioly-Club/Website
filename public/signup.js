@@ -1,6 +1,6 @@
 const db = firebase.firestore();
 const fieldsdiv = document.getElementById("fields");
-var inputsid = [];
+var inputsid = [], required = [];
 var sciencid = [];
 var eventsid = [];
 
@@ -33,6 +33,9 @@ rfields.get().then(function(doc){
       inpb.setAttribute("placeholder", item.placeholder);
       inpb.setAttribute("id", item.id);
       inputsid.push(item.id);
+      if(item.required){
+        required.push(item.id);
+      }
       bigdiv.appendChild(tith);
       bigdiv.appendChild(addh);
       bigdiv.appendChild(inpb);
@@ -173,12 +176,20 @@ auth.onAuthStateChanged(user => {
       if(doc.exists){
         const map = new Map(Object.entries(doc.data()));
         inputsid.forEach((item, i) => {
-          document.getElementById(item).value = map.get(item);
-          if(item === "passwordf" || item === "emailf"){
-            document.getElementById(item).disabled = true;
+          if(map.has(item)){
+            let tempbox = document.querySelector("#" + item);
+            if(map.get(item) !== null){
+              tempbox.value = map.get(item);
+            }
+            if(tempbox.type === "checkbox"){
+              tempbox.checked = map.get(item);
+            }
+            if(item === "passwordf" || item === "emailf"){
+              tempbox.disabled = true;
+            }
           }
         });
-        document.querySelector('#statf').checked = map.get('statf');
+        
         map.get("scienceclass").forEach((item, i) => {
           document.getElementById(item).checked = true;
         });
@@ -207,22 +218,24 @@ document.getElementById("signup").addEventListener("click", () => {
 
   inputsid.forEach((item, i) => {
     var tex = document.getElementById(item).value;
-	if(item[item.length-1] === "f" && item != "statf") {
-	  // SANITIZE
-	  tex = tex.split("&").join("&amp;");
-	  tex = tex.split("<").join("&lt;");
-	  tex = tex.split(">").join("&gt;");
-	  tex = tex.split('"').join("&quot;");
-	  tex = tex.split("'").join("&apos;");
-	  tex = tex.split("/").join("&#x2F;");
-	}
+    if(item[item.length-1] === "f" && item != "statf") {
+      // SANITIZE
+      tex = tex.split("&").join("&amp;");
+      tex = tex.split("<").join("&lt;");
+      tex = tex.split(">").join("&gt;");
+      tex = tex.split('"').join("&quot;");
+      tex = tex.split("'").join("&apos;");
+      tex = tex.split("/").join("&#x2F;");
+    }
     if(tex.length < 1){
       if(item === "passwordf"){
         if(!user){
           canprocede = false;
         }
-      }else if(item != "statf"){
-        canprocede = false;
+      }else if(required.includes(item)){
+        if(document.getElementById(item).type!=="checkbox"){
+          canprocede = false;
+        }
       }
     }else{
       if(item === "passwordf"){
@@ -236,7 +249,12 @@ document.getElementById("signup").addEventListener("click", () => {
         person.set(item, tex);
       }
     }
-    if(item === "statf"){
+    if(document.querySelector("#" + item).type==="checkbox"){
+      if(required.includes(item)){
+        if(!document.getElementById(item).checked){
+          canprocede = false;
+        }
+      }
       person.set(item, document.getElementById(item).checked);
     }
   });
