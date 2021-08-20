@@ -261,7 +261,7 @@ document.getElementById("signup").addEventListener("click", () => {
 
   var temparr = [];
   sciencid.forEach((item, i) => {
-    if(item.checked){
+    if(document.querySelector('#'+item).checked){
       temparr.push(item);
     }
   });

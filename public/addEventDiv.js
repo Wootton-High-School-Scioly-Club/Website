@@ -71,6 +71,8 @@ var addPerson = (div, doc) => {
   tempdiv.setAttribute("uid", doc.id);
   tempdiv.setAttribute("team", doc.team);
   tempdiv.setAttribute("nameofp", sanitize(doc.namef));
+  tempdiv.style.lineHeight = "11px";
+  tempdiv.style.paddingTop = "4px";
   tempdiv.style.width = "100px";
   tempdiv.style.height = "30px";
   tempdiv.style.margin = "10px 0 0 10px";
