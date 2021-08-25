@@ -82,7 +82,7 @@ db.collection('Event').get().then((doc) => {
   tht.appendChild(document.createTextNode("Please choose at least four preferred events:"));
   var thtg = document.createElement("p");
   thtg.className = "gray leftal";
-  thtg.innerHTML = "Drag and drop at least 4 events in the order of your interest";
+  thtg.innerHTML = "Drag&Drop/Double-tap at least 4 events in the order of your interest. Hover on the box to see a brief description of event.";
 
   //create the div that holds the chosen events
   var firdiv = document.createElement("div");
@@ -102,7 +102,8 @@ db.collection('Event').get().then((doc) => {
     //firdiv.appendChild(draggedItem);
   });
   firdiv.setAttribute("id", "ansdiv");
-  firdiv.style.width = "610px";
+  firdiv.style.width = "90%";
+  firdiv.style.maxWidth = "610px";
   //firdiv.style.height = "110px";
   //firdiv.style.margin = "20px 0px 20px 30px";
   firdiv.style.border = "solid 1px grey";
@@ -277,6 +278,7 @@ document.getElementById("signup").addEventListener("click", () => {
     }
     person.set("preferredeve", temparr);
   }
+  person.set("requpdate", false);
   const obj = Object.fromEntries(person);
 
 

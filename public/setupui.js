@@ -12,11 +12,12 @@ const setupui = (user) => {
     adminele.forEach((item, i) => {
       item.hidden = false;
     });
+    
     //firebase.firestore().collection("Event").get().then(doc => {
       //if(doc.exists){
     var divforall = document.querySelector('#eventsdiv');
     divforall.style.maxWidth = "610px";
-	divforall.style.width = "90%";
+	  divforall.style.width = "90%";
     divforall.style.margin = "20px auto 20px auto";
     divforall.style.border = "solid 1px grey";
     //divforall.style.backgroundColor = "#ddd";
@@ -355,8 +356,17 @@ const setupui = (user) => {
 
     let p2 = firebase.firestore().collection('Members').get().then(doc => {
       peoples = doc;
+      var requpdate = document.querySelector("#requpdate");
+      requpdate.onclick = function(){
+        doc.forEach(function(d){
+          d.ref.update({
+            requpdate: true
+          });
+        });
+      }
       doc.forEach((item, i) => {
         console.log(item.data().admin);
+        if(item.data().requpdate) return;
         var tempperson = addPerson(totpeo, item.data());
         var cloneny = tempperson.cloneNode(true);
         cloneny.style.margin = "0";
