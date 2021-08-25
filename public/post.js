@@ -22,8 +22,8 @@ auth.onAuthStateChanged(user => {
     postform.addEventListener("submit", (e) => {
       e.preventDefault();
       var obj = {
-        name: sanitize(postform.querySelector("#nameinput").value),
-        text: sanitize(postform.querySelector("#textinput").value),
+        name: postform.querySelector("#nameinput").value,
+        text: postform.querySelector("#textinput").value,
         id: user.uid,
         time: firebase.firestore.Timestamp.fromMillis(Date.now()),
         email: user.email,
@@ -50,20 +50,9 @@ let bigiv = document.querySelector('#postsdiv');
 
 let inflatePost = (item, user) => {
   var tempdiv = template.cloneNode(true);
-  tempdiv.querySelector(".namep").innerHTML = sanitize(item.name);
-  tempdiv.querySelector(".emailp").innerHTML = '-' + sanitize(item.email);
-  tempdiv.querySelector(".time").innerHTML = item.time.toDate().toDateString();
-  tempdiv.querySelector(".text").innerHTML = sanitize(item.text);
+  tempdiv.querySelector(".namep").textContent = item.name;
+  tempdiv.querySelector(".emailp").textContent = '-' + item.email;
+  tempdiv.querySelector(".time").textContent = item.time.toDate().toDateString();
+  tempdiv.querySelector(".text").textContent = item.text;
   bigiv.prepend(tempdiv);
 };
-
-function sanitize(input) {
-	input = input.split("&").join("&amp;");
-	input = input.split("<").join("&lt;");
-	input = input.split(">").join("&gt;");
-	input = input.split('"').join("&quot;");
-	input = input.split("'").join("&apos;");
-	input = input.split("/").join("&#x2F;");
-
-	return input;
-}

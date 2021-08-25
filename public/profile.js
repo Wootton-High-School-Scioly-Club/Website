@@ -6,7 +6,6 @@ let userref;
 let unsubscribe;
 
 var user = firebase.auth().currentUser;
-console.log("Hello World");
 
 
 auth.onAuthStateChanged(user => {

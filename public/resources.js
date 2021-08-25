@@ -16,26 +16,9 @@ $("#addResourceBtn").click(function(){
 	var desc = document.getElementById("resourceInputDescription");
 	var url = document.getElementById("resourceInputURL");
 	
-	var url_str = url.value;
-	var desc_str = desc.value;
-	
-	url_str = url_str.split("&").join("&amp;");
-	url_str = url_str.split("<").join("&lt;");
-	url_str = url_str.split(">").join("&gt;");
-	url_str = url_str.split('"').join("&quot;");
-	url_str = url_str.split("'").join("&apos;");
-	url_str = url_str.split("/").join("&#x2F;");
-	
-	desc_str = desc_str.split("&").join("&amp;");
-	desc_str = desc_str.split("<").join("&lt;");
-	desc_str = desc_str.split(">").join("&gt;");
-	desc_str = desc_str.split('"').join("&quot;");
-	desc_str = desc_str.split("'").join("&apos;");
-	desc_str = desc_str.split("/").join("&#x2F;");
-	
 	var resource = {
-		desc: desc_str,
-		url: url_str
+		desc: desc.value,
+		url: url.value
 	}
 	
 	desc.value = '';
@@ -75,24 +58,22 @@ $('#alert_placeholder').append('<div id="Alert" class="alert ' + type + ' alert-
 
 //Load Resources
 db.collection("Resources").get().then((querySnapshot) => {
+	var table = document.getElementById("resource_table");
 	querySnapshot.forEach((doc) => {
 		url = doc.data().url;
 		desc = doc.data().desc;
-		
-		url = url.split("&").join("&amp;");
-		url = url.split("<").join("&lt;");
-		url = url.split(">").join("&gt;");
-		url = url.split('"').join("&quot;");
-		url = url.split("'").join("&apos;");
-		url = url.split("/").join("&#x2F;");
-		
-		desc = desc.split("&").join("&amp;");
-		desc = desc.split("<").join("&lt;");
-		desc = desc.split(">").join("&gt;");
-		desc = desc.split('"').join("&quot;");
-		desc = desc.split("'").join("&apos;");
-		desc = desc.split("/").join("&#x2F;");
-		
-		$("#resource_table").append('<tr><td><a href="' + url + '" target="_blank">' + url + '</a></td><td><p>' + desc + '</p></td></tr>')
+
+		var row = table.insertRow();
+
+		var url_cell = document.createElement("a");
+		url_cell.target = "_blank";
+		url_cell.href = url;
+		url_cell.textContent = url;
+
+		var desc_cell = document.createElement("p");
+		desc_cell.textContent = desc;
+
+		row.insertCell().appendChild(url_cell);
+		row.insertCell().appendChild(desc_cell);
 	});
 });
