@@ -204,6 +204,7 @@ auth.onAuthStateChanged(user => {
         document.getElementById("emailf").value = user.email;
         document.getElementById("passwordf").disabled = true;
         document.getElementById("emailf").disabled = true;
+        document.querySelector("#signup").innerHTML = "Create Profile";
       }
     });
 	}else{

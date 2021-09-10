@@ -8,11 +8,10 @@ service cloud.firestore {
     function isUpdatingField(fieldName) {
       return (!(fieldName in resource.data) && fieldName in request.resource.data) || resource.data[fieldName] != request.resource.data[fieldName];
     }
-    match /Members/{id}{
-      allow create: if true;
-      allow update: if ((request.auth.uid == request.resource.data.id) && !isUpdatingField("admin")) ||
-      isadmin();
-      allow read: if request.auth != null && ((request.auth.uid == request.resource.data.id) || isadmin());
+    match /Members/{document = **}{
+      allow create;
+      allow update: if ((request.auth.uid == request.resource.data.id));
+      allow read;
     }
     match /Events/{events}{
     	allow write: if isadmin();
