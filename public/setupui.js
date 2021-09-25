@@ -192,6 +192,7 @@ const setupui = (user) => {
           tblheight += 50;
           tbl.style.height = tblheight + "px";
           //For the events
+          console.log("called once");
           var tempdiv = addeventdiv(divforall, tempdoc);
           tempdiv.classList.add(tempdoc.id);
           tempdiv.addEventListener("click", () => {
@@ -276,6 +277,7 @@ const setupui = (user) => {
           }
         }
         if(item.type == 'modified'){
+          console.log("called twice");
           var tempdivs = document.querySelectorAll('.' + tempdoc.id);
           tempdivs.forEach((it, i) => {
             it.parentElement.removeChild(it);

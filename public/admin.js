@@ -28,20 +28,8 @@ auth.onAuthStateChanged(user => {
     user.getIdTokenResult().then(idtoken => {
       user.admin = idtoken.claims.admin;
       setupui(user);
-      need = false;
+      console.log("done first");
       console.log(user.admin);
     });
-    console.log("working");
-    if(need){
-      db.collection("Members").doc(user.uid).get().then((doc)=>{
-        if(doc.exists){
-          const map = new Map(Object.entries(doc.data()));
-          if(map.get("admin")){
-            user.admin = true;
-            setupui(user);
-          }
-        }
-      });
-    }
   }
 });

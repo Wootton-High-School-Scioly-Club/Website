@@ -10,6 +10,14 @@ let memberref;
 let unsubscribe;
 
 
+const changeColor = (divToChange) => {
+  divToChange.style.backgroundColor = "#ffe0e0";
+  setTimeout(()=>{
+    divToChange.style.backgroundColor = "#ffffff";
+  }, 5000);
+  divToChange.scrollIntoView();
+}
+
 fieldsref = db.collection("LoginFields");
 aeventref = db.collection("Event");
 
@@ -232,10 +240,12 @@ document.getElementById("signup").addEventListener("click", () => {
     if(tex.length < 1){
       if(item === "passwordf"){
         if(!user){
+          changeColor(document.querySelector("#passwordf").parentElement);
           canprocede = false;
         }
       }else if(required.includes(item)){
         if(document.getElementById(item).type!=="checkbox"){
+          changeColor(document.querySelector("#" + item).parentElement);
           canprocede = false;
         }
       }
@@ -254,6 +264,7 @@ document.getElementById("signup").addEventListener("click", () => {
     if(document.querySelector("#" + item).type==="checkbox"){
       if(required.includes(item)){
         if(!document.getElementById(item).checked){
+          changeColor(document.querySelector("#" + item).parentElement);
           canprocede = false;
         }
       }
@@ -272,6 +283,7 @@ document.getElementById("signup").addEventListener("click", () => {
   var temparr = [];
   var chosenevents = document.getElementById("ansdiv").children;
   if(chosenevents.length < 4){
+    changeColor(document.querySelector("#ansdiv"));
     canprocede = false;
   }else{
     for(var a = 0; a < chosenevents.length; a ++){
@@ -295,23 +307,21 @@ document.getElementById("signup").addEventListener("click", () => {
           });
         }else{
           obj.team = -1;
-          memberref.doc(user.uid).set(obj).then(() => {
+          memberref.doc(user.uid).set(obj, {merge: true}).then(() => {
             Alert("Profile created!", "alert-success");
+          }).catch(err=>{
+            Alert("Something's wrong. Please contact captain or try again later.", "alert-danger");
           });
         }
       });
     }else{
-      memberref.where("emailf", "==", person.get("emailf")).get().then((doc) => {
-        if(doc.exists){
-          Alert("Account already exists. Please sign in to update profile.", "alert-info");
-        }else{
-          firebase.auth().createUserWithEmailAndPassword(person.get("emailf"), person.get("passwordf")).then((cred) => {
-            obj.team = -1;
-            obj.id = cred.user.uid;
-            memberref.doc(cred.user.uid).set(obj);
-            window.location.replace("index.html");
-          });
-        }
+      firebase.auth().createUserWithEmailAndPassword(person.get("emailf"), person.get("passwordf")).then((cred) => {
+        obj.team = -1;
+        obj.id = cred.user.uid;
+        memberref.doc(cred.user.uid).set(obj);
+        window.location.replace("index.html");
+      }).catch(err => {
+        Alert("Something's wrong. Please check if account exist or contact captain.", "alert-danger");
       });
     }
   }else{

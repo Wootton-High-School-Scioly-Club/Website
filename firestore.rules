@@ -3,15 +3,15 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     function isadmin(){
-      return request.auth.token.admin == true || /databases/$(database)/documents/Members/$(request.auth.uid).data.admin == true;
+      return request.auth.token.admin == true;
     }
     function isUpdatingField(fieldName) {
       return (!(fieldName in resource.data) && fieldName in request.resource.data) || resource.data[fieldName] != request.resource.data[fieldName];
     }
-    match /Members/{document = **}{
+    match /Members/{documentId}{
       allow create;
-      allow update: if ((request.auth.uid == request.resource.data.id) || isadmin());
-      allow read;
+      allow update: if ((request.auth.uid == documentId));
+      allow read: if (request.auth != null && request.auth.uid == documentId) || isadmin();
     }
     match /Events/{events}{
     	allow write: if isadmin();

@@ -22,6 +22,10 @@ auth.onAuthStateChanged(user=>{
 					console.log("done");
 				}catch{}
 			}
+		}).catch(e=>{
+			try{
+				document.querySelector("#propmtcreat").hidden = false;
+			}catch{}
 		});
 	}else{
 		whensignedout.hidden = false;
