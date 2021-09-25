@@ -108,7 +108,10 @@ var addPerson = (div, doc) => {
     document.querySelector("#popuppart").innerHTML = sanitize(doc.partnerf);
     document.querySelector("#popupstat").innerHTML = doc.statf;
     document.querySelector("#popuppho").innerHTML = (doc.canphoto);
-    document.querySelector("#popupaward").innerHTML = sanitize(doc.awrdf);
+    document.querySelector("#popupaward").innerHTML = sanitize(doc.awardf);
+    document.querySelector("#popupphysics").innerHTML = (doc.PhysicsScore);
+    document.querySelector("#popupchem").innerHTML = (doc.ChemScore);
+    document.querySelector("#popupbio").innerHTML = (doc.BioScore);
     var tempstr = "";
     doc.scienceclass.forEach((item, i) => {
       tempstr = tempstr + item;

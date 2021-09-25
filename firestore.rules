@@ -10,7 +10,7 @@ service cloud.firestore {
     }
     match /Members/{document = **}{
       allow create;
-      allow update: if ((request.auth.uid == request.resource.data.id));
+      allow update: if ((request.auth.uid == request.resource.data.id) || isadmin());
       allow read;
     }
     match /Events/{events}{

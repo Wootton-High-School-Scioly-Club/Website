@@ -33,7 +33,7 @@ auth.onAuthStateChanged(user => {
     });
     console.log("working");
     if(need){
-      db.collection("Members").document(user.uid).get().then((doc)=>{
+      db.collection("Members").doc(user.uid).get().then((doc)=>{
         if(doc.exists){
           const map = new Map(Object.entries(doc.data()));
           if(map.get("admin")){

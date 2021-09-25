@@ -1,6 +1,6 @@
 
 var peoples;
-var peopledivs = new Map();
+var peopledivs = new Map(), peopleteam = new Map();
 
 
 
@@ -156,7 +156,7 @@ const setupui = (user) => {
     var teamnumber = 3;
     tbl.style.maxWidth = (120 + 350 * teamnumber) + "px";
     tbl.style.width = "100%";
-	tbl.style.margin = "auto";
+  	tbl.style.margin = "auto";
     var lefhead = document.createElement("th");
     lefhead.style.width = "120px";
     lefhead.innerHTML = "Event";
@@ -242,6 +242,7 @@ const setupui = (user) => {
                 cnode.style.margin = "0";
                 e.target.appendChild(cnode);
 
+                peopleteam.set(cnode.getAttribute("uid"), e.target.getAttribute("team"));
                 //start here
                 needupdate.push(e.target.getAttribute("teamname"));
               });
@@ -328,6 +329,7 @@ const setupui = (user) => {
                 cnode.style.opacity = 1;
                 cnode.style.margin = "0";
                 e.target.appendChild(cnode);
+                peopleteam.set(cnode.getAttribute("uid"), e.target.getAttribute("team"));
                 needupdate.push(e.target.getAttribute("teamname"));
               });
               tempd.style.width = (350 / tempdoc.members) + "px";
@@ -371,6 +373,7 @@ const setupui = (user) => {
         var cloneny = tempperson.cloneNode(true);
         cloneny.style.margin = "0";
         peopledivs.set(item.data().id, cloneny);
+        peopleteam.set(item.data().id, item.data.team);
         tempperson.addEventListener("dragstart", (e) => {
           draggedItem = tempperson;
           document.querySelector("#ppopup").style.visibility = "hidden";
@@ -436,9 +439,9 @@ const setupui = (user) => {
 
 const setrect = (teamnum) => {
   document.querySelector("#recommends").innerHTML = "";
-  //console.log("called");
+  console.log("called");
   for(let [key, value] of peopledivs) {
-    if(value.getAttribute("team") === teamnum){
+    if(peopleteam.get(key) === teamnum){
       var clonednode = value.cloneNode(true);
       clonednode.style.margin = "10px 0px 10px 10px";
       clonednode.addEventListener("dragstart", (e) => {
