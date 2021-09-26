@@ -146,18 +146,24 @@ const setupui = (user) => {
     divgrid.appendChild(labnum);
     divgrid.appendChild(inputnum);*/
     var tbl = document.createElement("table");
-
+    var teamnumber = 3;
+    tbl.appendChild(document.createElement("col"));
+    for(var a = 0; a < teamnumber; a ++){
+      for(var b= 0; b < 6; b ++){
+        tbl.appendChild(document.createElement("col"));
+      }
+    }
     tbl.style.height = "50px";
     tbl.style.textAlign = "left";
     var hrow = document.createElement("tr");
     hrow.setAttribute("timb", -1);
     hrow.style.height = "50px";
     tblheight = 50;
-    var teamnumber = 3;
     tbl.style.maxWidth = (120 + 350 * teamnumber) + "px";
     tbl.style.width = "100%";
   	tbl.style.margin = "auto";
     var lefhead = document.createElement("th");
+    lefhead.colSpan = "1";
     lefhead.style.width = "120px";
     lefhead.innerHTML = "Event";
     hrow.appendChild(lefhead);
@@ -167,7 +173,7 @@ const setupui = (user) => {
       temphead.addEventListener("click", (e) => {
         setrect(e.target.getAttribute("team"));
       });
-      temphead.style.width = "350px";
+      //temphead.style.width = "350px";
       temphead.colSpan = "6";
       temphead.innerHTML = "Team " + (a + 1);
       hrow.appendChild(temphead);
@@ -214,6 +220,7 @@ const setupui = (user) => {
           temprow.style.height = "50px";
           temprow.style.backgroundColor = colors[tempdoc.block];
           var templab = document.createElement("th");
+          templab.colSpan = "1";
           templab.style.width = "120px";
           templab.innerHTML = tempdoc.name;
           temprow.appendChild(templab);
@@ -247,7 +254,7 @@ const setupui = (user) => {
                 //start here
                 needupdate.push(e.target.getAttribute("teamname"));
               });
-              tempd.style.width = (350 / parseInt(tempdoc.members)) + "px";
+              //tempd.style.width = (350 / parseInt(tempdoc.members)) + "px";
               tempd.colSpan = (6 / parseInt(tempdoc.members)).toString();
               temprow.appendChild(tempd);
             }
@@ -303,6 +310,7 @@ const setupui = (user) => {
           temprow.style.height = "50px";
           temprow.style.backgroundColor = colors[tempdoc.block];
           var templab = document.createElement("th");
+          templab.colSpan = "1";
           templab.style.width = "120px";
           templab.innerHTML = tempdoc.name;
           temprow.appendChild(templab);
@@ -334,7 +342,7 @@ const setupui = (user) => {
                 peopleteam.set(cnode.getAttribute("uid"), e.target.getAttribute("team"));
                 needupdate.push(e.target.getAttribute("teamname"));
               });
-              tempd.style.width = (350 / parseInt(tempdoc.members)) + "px";
+              //tempd.style.width = (350 / parseInt(tempdoc.members)) + "px";
               tempd.colSpan = (6 / parseInt(tempdoc.members)).toString();
               temprow.appendChild(tempd);
             }

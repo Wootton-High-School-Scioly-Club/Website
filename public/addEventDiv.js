@@ -113,7 +113,7 @@ var addPerson = (div, doc) => {
       tempstr += ", ";
     });
     document.querySelector("#popuppe").innerHTML = tempstr;
-    document.querySelector("#popupnum").innerHTML = document.querySelector("table").querySelectorAll('.' + doc.id).length;
+    document.querySelector("#popupnum").innerHTML = document.querySelector("table").getElementsByClassName(doc.id).length;
   }
   tempdiv.addEventListener("mouseleave", () => {
     document.querySelector("#ppopup").style.visibility = "hidden";
