@@ -201,7 +201,7 @@ const setupui = (user) => {
             inputd.value = tempdoc.description;
             inputi.value = tempdoc.id;
             inputb.value = tempdoc.block;
-            inputm.value = tempdoc.members;
+            inputm.value = parseInt(tempdoc.members);
 
             inputi.disabled = true;
             inputbtn.innerHTML = "Update";
@@ -218,7 +218,7 @@ const setupui = (user) => {
           templab.innerHTML = tempdoc.name;
           temprow.appendChild(templab);
           for(var a = 0; a < teamnumber; a ++){
-            for(var b = 0; b < tempdoc.members; b ++){
+            for(var b = 0; b < parseInt(tempdoc.members); b ++){
               var tempd = document.createElement("td");
               tempd.className = (tempdoc.id+(a+1));
               tempd.setAttribute("nameofe", tempdoc.name);
@@ -247,8 +247,8 @@ const setupui = (user) => {
                 //start here
                 needupdate.push(e.target.getAttribute("teamname"));
               });
-              tempd.style.width = (350 / tempdoc.members) + "px";
-              tempd.colSpan = (6 / tempdoc.members).toString();
+              tempd.style.width = (350 / parseInt(tempdoc.members)) + "px";
+              tempd.colSpan = (6 / parseInt(tempdoc.members)).toString();
               temprow.appendChild(tempd);
             }
             teamsarr.push((tempdoc.id+(a+1)));
@@ -290,7 +290,7 @@ const setupui = (user) => {
             inputd.value = tempdoc.description;
             inputi.value = tempdoc.id;
             inputb.value = tempdoc.block;
-            inputm.value = tempdoc.members;
+            inputm.value = parseInt(tempdoc.members);
 
             inputi.disabled = true;
             inputbtn.innerHTML = "Update";
@@ -307,7 +307,7 @@ const setupui = (user) => {
           templab.innerHTML = tempdoc.name;
           temprow.appendChild(templab);
           for(var a = 0; a < teamnumber; a ++){
-            for(var b = 0; b < tempdoc.members; b ++){
+            for(var b = 0; b < parseInt(tempdoc.members); b ++){
               var tempd = document.createElement("td");
               tempd.className = (tempdoc.id+(a+1));
               tempd.setAttribute("nameofe", tempdoc.name);
@@ -334,8 +334,8 @@ const setupui = (user) => {
                 peopleteam.set(cnode.getAttribute("uid"), e.target.getAttribute("team"));
                 needupdate.push(e.target.getAttribute("teamname"));
               });
-              tempd.style.width = (350 / tempdoc.members) + "px";
-              tempd.colSpan = (6 / tempdoc.members).toString();
+              tempd.style.width = (350 / parseInt(tempdoc.members)) + "px";
+              tempd.colSpan = (6 / parseInt(tempdoc.members)).toString();
               temprow.appendChild(tempd);
             }
           }

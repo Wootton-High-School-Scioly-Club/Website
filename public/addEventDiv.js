@@ -1,14 +1,3 @@
-function sanitize(input) {
-	input = input.split("&").join("&amp;");
-	input = input.split("<").join("&lt;");
-	input = input.split(">").join("&gt;");
-	input = input.split('"').join("&quot;");
-	input = input.split("'").join("&apos;");
-	input = input.split("/").join("&#x2F;");
-
-	return input;
-}
-
 var addeventdiv = (bdiv, item) => {
   var tempdiv = document.createElement("div");
   tempdiv.className = "flexed draggablee";
@@ -67,10 +56,10 @@ var addPerson = (div, doc) => {
   tempdiv.className = "flexed draggablee";
   tempdiv.classList.add(doc.id);
   tempdiv.setAttribute("draggable", true);
-  tempdiv.setAttribute("email", sanitize(doc.emailf));
+  tempdiv.setAttribute("email", doc.emailf);
   tempdiv.setAttribute("uid", doc.id);
   tempdiv.setAttribute("team", doc.team);
-  tempdiv.setAttribute("nameofp", sanitize(doc.namef));
+  tempdiv.setAttribute("nameofp", doc.namef);
   tempdiv.style.lineHeight = "11px";
   tempdiv.style.paddingTop = "4px";
   tempdiv.style.width = "100px";
@@ -101,17 +90,17 @@ var addPerson = (div, doc) => {
 
   tempdiv.onmouseover = () => {
     document.querySelector("#ppopup").style.visibility = "visible";
-    document.querySelector("#ppopupname").innerHTML = sanitize(doc.namef);
-    document.querySelector("#popupgrade").innerHTML = doc.gradef;
-    document.querySelector("#popupema").innerHTML = sanitize(doc.emailf);
-    document.querySelector("#popupteam").innerHTML = doc.team;
-    document.querySelector("#popuppart").innerHTML = sanitize(doc.partnerf);
-    document.querySelector("#popupstat").innerHTML = doc.statf;
-    document.querySelector("#popuppho").innerHTML = (doc.canphoto);
-    document.querySelector("#popupaward").innerHTML = sanitize(doc.awardf);
-    document.querySelector("#popupphysics").innerHTML = (doc.PhysicsScore);
-    document.querySelector("#popupchem").innerHTML = (doc.ChemScore);
-    document.querySelector("#popupbio").innerHTML = (doc.BioScore);
+    document.querySelector("#ppopupname").innerText = doc.namef;
+    document.querySelector("#popupgrade").innerText = doc.gradef;
+    document.querySelector("#popupema").innerText = doc.emailf;
+    document.querySelector("#popupteam").innerText = doc.team;
+    document.querySelector("#popuppart").innerText = doc.partnerf;
+    document.querySelector("#popupstat").innerText = doc.statf;
+    document.querySelector("#popuppho").innerText = (doc.canphoto);
+    document.querySelector("#popupaward").innerText = doc.awardf;
+    document.querySelector("#popupphysics").innerText = (doc.PhysicsScore);
+    document.querySelector("#popupchem").innerText = (doc.ChemScore);
+    document.querySelector("#popupbio").innerText = (doc.BioScore);
     var tempstr = "";
     doc.scienceclass.forEach((item, i) => {
       tempstr = tempstr + item;
