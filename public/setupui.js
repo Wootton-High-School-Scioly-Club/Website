@@ -160,7 +160,7 @@ const setupui = (user) => {
     hrow.style.height = "50px";
     tblheight = 50;
     tbl.style.maxWidth = (120 + 350 * teamnumber) + "px";
-    tbl.style.width = "100%";
+    tbl.style.width = "1170px";
   	tbl.style.margin = "auto";
     var lefhead = document.createElement("th");
     lefhead.colSpan = "1";
@@ -254,7 +254,7 @@ const setupui = (user) => {
                 //start here
                 needupdate.push(e.target.getAttribute("teamname"));
               });
-              //tempd.style.width = (350 / parseInt(tempdoc.members)) + "px";
+              tempd.style.width = (350 / parseInt(tempdoc.members)) + "px";
               tempd.colSpan = (6 / parseInt(tempdoc.members)).toString();
               temprow.appendChild(tempd);
             }
@@ -342,7 +342,7 @@ const setupui = (user) => {
                 peopleteam.set(cnode.getAttribute("uid"), e.target.getAttribute("team"));
                 needupdate.push(e.target.getAttribute("teamname"));
               });
-              //tempd.style.width = (350 / parseInt(tempdoc.members)) + "px";
+              tempd.style.width = (350 / parseInt(tempdoc.members)) + "px";
               tempd.colSpan = (6 / parseInt(tempdoc.members)).toString();
               temprow.appendChild(tempd);
             }
@@ -434,7 +434,7 @@ const setupui = (user) => {
       needupdate = [];
 
       peoples.forEach((item, i) => {
-        var persondivs = document.querySelector("table").querySelectorAll("." + item.data().id);
+        var persondivs = document.querySelector("table").getElementsByClassName(item.data().id);
         if(persondivs.length > 0){
           //if(persondivs[0].getAttribute("team") !== persondivs[0].parentElement.getAttribute("team")){
           firebase.firestore().collection('Members').doc(item.data().id).update({
