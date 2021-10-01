@@ -15,7 +15,7 @@ auth.onAuthStateChanged(user => {
     var cemail = user.email;
     eventref.where("mememail", "array-contains", cemail).get().then((eventarr) => {
       if(eventarr.docs.length == 0)
-        document.getElementById("teamh2").innerText = "You are currently on "
+        document.getElementById("teamh2").innerText = "You are currently on the reserve team";
       eventarr.docs.forEach(function(doc){
         var item = doc.data();
         document.getElementById("teamh2").innerText = "Team No. " + item.id[item.id.length-1];
