@@ -24,6 +24,6 @@ signwg.onclick = function(){
 
 firebase.auth().onAuthStateChanged(user=>{
 	if(user){
-    window.location.replace("index.html");
+    window.location.replace("signup.html");
 	}
 });
