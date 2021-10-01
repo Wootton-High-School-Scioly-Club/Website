@@ -75,7 +75,7 @@ var addPerson = (div, doc) => {
     case 2:
       tempdiv.style.backgroundColor = "#FFEBCD";
       break;
-    case 1:
+    case 3:
       tempdiv.style.backgroundColor = "#00FFFF";
       break;
   }

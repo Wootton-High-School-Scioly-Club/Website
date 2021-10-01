@@ -14,8 +14,11 @@ auth.onAuthStateChanged(user => {
     userref = db.collection("Members");
     var cemail = user.email;
     eventref.where("mememail", "array-contains", cemail).get().then((eventarr) => {
+      if(eventarr.docs.length == 0)
+        document.getElementById("teamh2").innerText = "You are currently on "
       eventarr.docs.forEach(function(doc){
         var item = doc.data();
+        document.getElementById("teamh2").innerText = "Team No. " + item.id[item.id.length-1];
         console.log(item);
         var bigli = document.createElement("li");
         var bigdiv = document.createElement("div");

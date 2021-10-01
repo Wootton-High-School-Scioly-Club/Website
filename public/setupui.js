@@ -1,11 +1,44 @@
 
 var peoples;
 var peopledivs = new Map(), peopleteam = new Map();
-
+var currentteam = 0, currentevent = "";
+var peopleprofile = new Map();
 
 
 const setupui = (user) => {
   if(user.admin){
+    var bottome = document.querySelector("#totalpeople");
+    var btmheight, btheight = 100;
+    var staction = (evt)=>{
+      setrect(0);
+      btmheight = evt.screenY;
+    }
+    var resizeaction = (evt) =>{
+      var dx = evt.screenY - btmheight;
+      btmheight = evt.screenY;
+      btheight = btheight - dx;
+      console.log(dx);
+      console.log(btheight);
+      bottome.style.height = btheight + "px";
+    }
+    var resizer = document.createElement("BUTTON");
+    resizer.style.top = 0;
+    resizer.style.right = 0;
+    resizer.appendChild(document.createTextNode("r"));
+    resizer.style.position = "sticky";
+    resizer.addEventListener("mousedown", (e)=>{
+      console.log("mousedowned");
+      staction(e);
+      resizer.addEventListener("mousemove", (ef)=>{
+        resizeaction(ef);
+        console.log("mousemoved");
+      });
+      resizer.addEventListener("mouseup", ()=>{
+        resizer.removeEventListener("mousemove", resizeaction);
+      });
+    })
+    bottome.appendChild(resizer);
+
     let needupdate = [];
 
     var adminele = document.querySelectorAll('.admin');
@@ -163,9 +196,16 @@ const setupui = (user) => {
     tbl.style.width = "1170px";
   	tbl.style.margin = "auto";
     var lefhead = document.createElement("th");
+    lefhead.addEventListener("click",(e)=>{
+      setrect(-1);
+    })
     lefhead.colSpan = "1";
     lefhead.style.width = "120px";
     lefhead.innerHTML = "Event";
+    lefhead.addEventListener("click", (e)=>{
+      currentevent = "";
+      setrect(currentteam);
+    });
     hrow.appendChild(lefhead);
     for(var a = 0; a < teamnumber; a ++){
       var temphead = document.createElement("th");
@@ -182,7 +222,7 @@ const setupui = (user) => {
     hrow.classList.add("stuck");
     divgrid.appendChild(tbl);
 
-    var colors = ["#FF5555", "#FFA544", "#FFFF00", "#00FF00", "#00BBFF", "#0099FF", "#AA44FF"];
+    var colors = ["#FF6666", "#FFA555", "#FFFF22", "#22FF22", "#11DDFF", "#11AAFF", "#AA55FF"];
     var teamsarr = [];
     var totpeo = document.querySelector("#totalpeople");
     document.querySelector('#ppopup').style.top = "80px";
@@ -198,7 +238,6 @@ const setupui = (user) => {
           tblheight += 50;
           tbl.style.height = tblheight + "px";
           //For the events
-          console.log("called once");
           var tempdiv = addeventdiv(divforall, tempdoc);
           tempdiv.classList.add(tempdoc.id);
           tempdiv.addEventListener("click", () => {
@@ -220,6 +259,10 @@ const setupui = (user) => {
           temprow.style.height = "50px";
           temprow.style.backgroundColor = colors[tempdoc.block];
           var templab = document.createElement("th");
+          templab.addEventListener("click", (e)=>{
+            currentevent = tempdoc.id;
+            setrect(currentteam);
+          });
           templab.colSpan = "1";
           templab.style.width = "120px";
           templab.innerHTML = tempdoc.name;
@@ -250,7 +293,26 @@ const setupui = (user) => {
                 cnode.style.margin = "0";
                 e.target.appendChild(cnode);
 
+                if(peopleteam.get(cnode.getAttribute("uid")) != e.target.getAttribute("team")){
+                  var colorstring = "#F0FFFF";
+                  switch(doc.team){
+                    case 1:
+                      colorstring = "#F0FFFF";
+                      break;
+                    case 2:
+                      colorstring = "#FFEBCD";
+                      break;
+                    case 3:
+                      colorstring = "#00FFFF";
+                      break;
+                  }
+                  var temppeopledivs = document.getElementsByClassName(cnode.getAttribute("uid"));
+                  for(var it = 0; it < temppeopledivs.length; it++){
+                    temppeopledivs[it].style.backgroundColor = colorstring;
+                  }
+                }
                 peopleteam.set(cnode.getAttribute("uid"), e.target.getAttribute("team"));
+                setrect(currentteam);
                 //start here
                 needupdate.push(e.target.getAttribute("teamname"));
               });
@@ -284,7 +346,6 @@ const setupui = (user) => {
           }
         }
         if(item.type == 'modified'){
-          console.log("called twice");
           var tempdivs = document.querySelectorAll('.' + tempdoc.id);
           tempdivs.forEach((it, i) => {
             it.parentElement.removeChild(it);
@@ -310,6 +371,10 @@ const setupui = (user) => {
           temprow.style.height = "50px";
           temprow.style.backgroundColor = colors[tempdoc.block];
           var templab = document.createElement("th");
+          templab.addEventListener("click", (e)=>{
+            currentevent = tempdoc.id;
+            setrect(currentteam);
+          });
           templab.colSpan = "1";
           templab.style.width = "120px";
           templab.innerHTML = tempdoc.name;
@@ -339,7 +404,27 @@ const setupui = (user) => {
                 cnode.style.opacity = 1;
                 cnode.style.margin = "0";
                 e.target.appendChild(cnode);
+
+                if(peopleteam.get(cnode.getAttribute("uid")) != e.target.getAttribute("team")){
+                  var colorstring = "#F0FFFF";
+                  switch(doc.team){
+                    case 1:
+                      colorstring = "#F0FFFF";
+                      break;
+                    case 2:
+                      colorstring = "#FFEBCD";
+                      break;
+                    case 3:
+                      colorstring = "#00FFFF";
+                      break;
+                  }
+                  var temppeopledivs = document.getElementsByClassName(cnode.getAttribute("uid"));
+                  for(var it = 0; it < temppeopledivs.length; it++){
+                    temppeopledivs[it].style.backgroundColor = colorstring;
+                  }
+                }
                 peopleteam.set(cnode.getAttribute("uid"), e.target.getAttribute("team"));
+                setrect(currentteam);
                 needupdate.push(e.target.getAttribute("teamname"));
               });
               tempd.style.width = (350 / parseInt(tempdoc.members)) + "px";
@@ -377,13 +462,17 @@ const setupui = (user) => {
         });
       }
       doc.forEach((item, i) => {
-        console.log(item.data().admin);
         if(item.data().requpdate) return;
+        peopleprofile.set(item.data().id, item.data());
         var tempperson = addPerson(totpeo, item.data());
         var cloneny = tempperson.cloneNode(true);
+        cloneny['onmouseover'] = tempperson['onmouseover'];
+        cloneny.addEventListener('mouseleave', ()=>{
+          document.querySelector("#ppopup").style.visibility = "hidden";
+        });
         cloneny.style.margin = "0";
         peopledivs.set(item.data().id, cloneny);
-        peopleteam.set(item.data().id, item.data.team);
+        peopleteam.set(item.data().id, item.data().team);
         tempperson.addEventListener("dragstart", (e) => {
           draggedItem = tempperson;
           document.querySelector("#ppopup").style.visibility = "hidden";
@@ -429,7 +518,6 @@ const setupui = (user) => {
           }
         });
         firebase.firestore().collection('Events').doc(item).set(tempobj);
-        console.log("update No." + i);
       });
       needupdate = [];
 
@@ -438,7 +526,7 @@ const setupui = (user) => {
         if(persondivs.length > 0){
           //if(persondivs[0].getAttribute("team") !== persondivs[0].parentElement.getAttribute("team")){
           firebase.firestore().collection('Members').doc(item.data().id).update({
-            team: parseInt(persondivs[0].parentElement.getAttribute("team")),
+            team: parseInt(peopleteam.get(item.data().id)),
           });
         }
       });
@@ -448,14 +536,21 @@ const setupui = (user) => {
 };
 
 const setrect = (teamnum) => {
+  currentteam = teamnum;
   document.querySelector("#recommends").innerHTML = "";
-  console.log("called");
   for(let [key, value] of peopledivs) {
-    if(peopleteam.get(key) === teamnum){
+    if(currentevent != "" && !peopleprofile.get(key).preferredeve.includes(currentevent)){
+      continue;
+    }
+    if(peopleteam.get(key) == teamnum){
       var clonednode = value.cloneNode(true);
+      clonednode['onmouseover'] = value['onmouseover'];
+      clonednode.addEventListener('mouseleave', ()=>{
+        document.querySelector("#ppopup").style.visibility = "hidden";
+      });
       clonednode.style.margin = "10px 0px 10px 10px";
       clonednode.addEventListener("dragstart", (e) => {
-        draggedItem = clonednode;
+        draggedItem = peopledivs.get(key).cloneNode(true);
         document.querySelector("#ppopup").style.visibility = "hidden";
         draggedItem.style.opacity = "0.5";
       });

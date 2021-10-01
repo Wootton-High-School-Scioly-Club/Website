@@ -69,6 +69,7 @@ html, body {
 }
 .sevenw{
 	width: 75%;
+	min-width: 500px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -365,8 +366,8 @@ iframe {
 
 .popupdivs{
 	position: fixed;
-	left: 20px;
-	top: 150px;
+	left: 20px !important;
+	top: 30px;
 	width: 270px;
 	padding: 10px;
 	border: solid 1px grey;
